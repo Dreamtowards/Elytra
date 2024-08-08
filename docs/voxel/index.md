@@ -1,0 +1,79 @@
+
+# Voxel
+
+## I. Data Structure
+
+### Memory Store (Runtime)
+
+1. Big Array
+这是最简单直白的方法？UInt8[256*128*256] 早期的MCPE版本几乎就是这样的。
+然而这样的坏处，不仅是有限世界，也存在内存浪费 灵活性的缺失 (如大量空气块不能被省略)
+所以一般这不被考虑
+[图片]
+
+2. Chunks
+把世界分为无数个Chunk大块 (可以是方形区块e.g.16x16x16 或是MC的垂直区块16x256x16)，用他们组成世界。
+这样你不需要一次性加载所有，而是可以分Chunk加载和卸载。
+Vertical Chunk 垂直区块
+MC就是典型的垂直区块代表。在1.20版之前一直是 16x256x16的区块大小 (之后改成了384格高 - 顶底各加了64)。
+这种方法的优点是 "垂直连贯性", 
+
+1. 如果最顶部有一片遮天屋顶，由于垂直全部加载了。因此顶部的阴影会被正确投下来 - 无论是渲染上(Mesh, ShadowMapping), 或是逻辑上(Voxel SkyLight)
+2. 或其他遍历相关的 比如寻找最高点；或地形生成Population选择表面方块时要知晓上面N格后是空气
+3. 或玩家从高空落下 由于下面都已被加载了 因此掉下来会很流畅(无论是视觉上还是物理上) 不会卡加载。
+不过这几个‘优点’，下面的方形区块都有对应的解决方法 或许还是更彻底的解决方法。然而垂直区块由于其特质性，存在几个有点致命的弊端：
+1. 缺失扩展性: 垂直轴定多高合适？256? 384? 真的够吗? 如果你要做大海拔高山阔望..
+2. 缺失灵活性: 假设你要512格高 那你地形生成时要全生成这么高吗？那会不会很慢 又占内存和存储空间。
+[图片]
+Cubical Chunk 方形区块
+方形区块一般是16^3 (16长宽高) 或32^3的区块 (少有更大或更小的)。保持2^n的长宽高数值的优点是 可以通过位操作来快速乘除取模。
+这个方法的有点有：
+1. 真的很高!：现在Y轴也像XZ轴一样广阔无垠了。你甚至可以生成"天堂"(MC里的末地或以太Mod)，"地狱"在同一个世界里可能都不成问题。
+2. 按需加载：虽然Y轴巨大了 但你并不需要生成或加载那么多 而只需要加载范围内的 - 就像XZ轴一样。因此性能上也可以更好。
+对应上面的VerticalChunk的“垂直连贯性”，此处的解决方法：
+1. LoD支持: 如果很高处有东西 你未必要完全加载到他们才能显示他们。而是可以缓存LoD就可以看到他们。
+2. 遍历时 可以每个区块缓存相邻区块的指针 即可快速访问。
+3. 下落时的加载速度 - 只要视野范围开的够大 就不影响。然而上面VerticalChunks的代价是 横向移动时要加载全部竖向区块 这是不小的性能开销。
+
+Tip: 2^n ChunkPos Ops. 区块位置转换
+以16长宽高区块举例
+1. 乘: fn mul16(x) { x << 4 } var worldpos = mul16(chunkpos)
+2. 除: fn div16(x) { x >> 4 } var chunkpos = div16(worldpos)
+3. 模: fn mod16(x) { x & 15 } var localpos = mod16(worldpos)
+4. ?: fn floor16(x) { x & (!15) } var worldpos_chunkbase = floor16(worldpos)
+虽然现代计算机 我们并不需要为这些轻量计算节省性能 - 性能瓶颈往往不在于此。然而这的确是一些Neat的Trick
+
+Chunk Size 区块尺寸的选择
+
+3. SVO - Sparse Voxel Octree 稀疏八叉树
+4. SDF - Signed Distance Field 距离场
+
+Persistent Store (Disk)
+1. Palette compress 
+2. RLE Run-Length encoding
+
+
+Extendable Voxel Id System
+1. StrId (Global Unique) and NumId (Local/Temporary)
+
+II. Rendering
+LoD
+Culling Chunks 
+Raymarching
+VXGI
+III. Procedural World Generation
+Noises, FBM, Voronoi
+Biomes
+IV. Mesh Generation
+Isosurface algorithms
+1. MarchingCubes & Transvoxel
+2. SurfaceNets & DualContouring
+V. Simulation
+Liquid
+Lighting
+Breakapart
+Explosion
+Fire Spread
+PhysX Integration
+
+VI. Networking
