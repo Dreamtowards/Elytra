@@ -5,14 +5,14 @@ layout: home
 hero:
   name: 
   text: Elytra #"<img src='/assets/elytra-corp.png' style='height: 64px; '>"
-  tagline: Notes # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
+  tagline: Personal Blog # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
   actions:
     - theme: brand
-      text: Intro
-      link: /markdown-examples
+      text: Voxel
+      link: /voxel/
     - theme: alt
-      text: Join Elytra
-      link: /api-examples
+      text: Rendering
+      link: /render/
 features:
   - title: Ethertia · 以太效應
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -30,7 +30,7 @@ features:
 
 <br>
 
-# Projects
+<!-- # Projects -->
 
 <!-- <div class="VPFeatures VPHomeFeatures VPFeatures vp-raw" style="margin: 14px 0">
   <div class="project-items">
@@ -52,7 +52,7 @@ features:
   </div>
 </div> -->
 
-# Playlists
+<!-- # Playlists -->
 
 <!-- <p>Ethertia Devlog</p> -->
 <!-- <div>
@@ -68,7 +68,7 @@ features:
     cover_url="https://elytra.dev/~pris/res/vp/bio1.png"/>
 </div> -->
 
-# Blogs
+<!-- # Blogs -->
 
 <!-- <div>
   <EtPost
@@ -99,16 +99,20 @@ features:
 </div> -->
 
 
-# Articles · Papers · Publications 
+<!-- # Articles · Papers · Publications 
 
 # Gallery
 
-# About
+# About -->
+
+
+
+
 
 <!-- <VPTeamMembers size="small" :members="members" /> -->
 
 
-<style>
+<!-- <style>
 
 .vp-doc h1 {
   font-size: 30px;
@@ -126,7 +130,7 @@ features:
   gap: 12px
 }
 
-</style>
+</style> -->
 
 <!--script setup>
 

@@ -3,11 +3,20 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Elytra",
+  titleTemplate: ':title - Elytra', 
   description: "Elytra",
   lang: 'en-US',
   head: [
     ['link', { rel: 'icon', href: '/assets/logo-bl.png' }],
+    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=TAG_ID' }],
+    ['script', {},
+    `window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'TAG_ID');`]
   ],
+  cleanUrls: true,  // no .html suffix
+  metaChunk: true,  // more Cache?
   themeConfig: {
     logo: { 
         light: "/assets/logo-bl.png",
@@ -22,6 +31,7 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Voxel',
+        collapsed: false,
         items: [
           { text: 'Overview', link: '/voxel/' },
           { 
@@ -42,19 +52,14 @@ export default defineConfig({
               { text: 'Ray Marching', link: '/voxel/render/raymarching' },
               { text: 'VXGI', link: '/voxel/render/raymarching' },
               { 
-                text: 'Mesh Generation', 
+                text: 'Isosurface', 
                 collapsed: true,
                 items: [
-                  { 
-                    text: 'Isosurface Algorithms', 
-                    collapsed: true,
-                    items: [
-                      { text: 'Marching Cubes & Transvoxel', link: '/voxel/render/lod' },
-                      { text: 'Surface Nets & Dual Contouring', link: '/voxel/render/lod' },
-                    ]
-                  },
+                  { text: 'Marching Cubes & Transvoxel', link: '/voxel/render/lod' },
+                  { text: 'Surface Nets & Dual Contouring', link: '/voxel/render/lod' },
                 ]
               },
+              { text: 'Massive Terrain Rendering', link: '/voxel/render/lod' },
             ]
           },
           { 
@@ -85,6 +90,8 @@ export default defineConfig({
               { text: 'Teardown Study', link: '/voxel/render/lod' },
               { text: 'Douglas\'s Voxel Study', link: '/voxel/render/culling-chunks' },
               { text: 'Gore\'s Voxel Study', link: '/voxel/render/culling-chunks' },
+              { text: 'Minecraft Performance Mods Analysis', link: '/voxel/misc/minecraft-perf' },
+              
             ]
           },
         ]
@@ -92,7 +99,7 @@ export default defineConfig({
       {
         text: 'Rendering',
         items: [
-          { text: 'Overview', link: '/markdown-examples' },
+          { text: 'Prelude', link: '/markdown-examples' },
           { 
             text: 'Postmodern OpenGL 4', 
             collapsed: true,
@@ -107,13 +114,8 @@ export default defineConfig({
       {
         text: 'Physics',
         items: [
-          { text: 'Overview', link: '/markdown-examples' },
-        ]
-      },
-      {
-        text: 'Ragdoll',
-        items: [
-          { text: 'Overview', link: '/markdown-examples' },
+          { text: 'Overview', link: '/physics/' },
+          { text: 'Ragdoll', link: '/markdown-examples' },
         ]
       },
       {
@@ -124,14 +126,55 @@ export default defineConfig({
       },
       {
         text: 'Misc',
+        collapsed: false,
         items: [
           { text: 'About', link: '/misc/about' },
+          { 
+            text: 'Algorithms', 
+            collapsed: true,
+            items: [
+              { text: 'Flood Fill', link: '/misc/about' },
+            ]
+          },
         ]
       }
     ],
 
+    aside: true,
+    outline: {
+      level: [2, 3],
+      label: "On this page"
+    },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
+      { icon: 'github', link: 'https://github.com/Dreamtowards/Ethertum' },
+      { icon: 'discord', link: 'https://discord.gg/k7ssbPJQnp', ariaLabel: 'cool link' },
+      { icon: 'youtube', link: 'https://www.youtube.com/@dreamtowards' },
+    ],
+    search: {
+      provider: 'local'
+    },
+    editLink: {
+      pattern: 'https://github.com/:path',
+      text: 'Edit this page on GitHub'
+    },
+    lastUpdated: {
+    }
+  },
+  markdown: {
+    lineNumbers: true
+  },
+
+  vite: { 
+    optimizeDeps: { 
+      exclude: [ 
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
+      ], 
+    }, 
+    ssr: { 
+      noExternal: [ 
+        // If there are other packages that need to be processed by Vite, you can add them here.
+        '@nolebase/vitepress-plugin-enhanced-readabilities', 
+      ], 
+    }, 
+  }, 
 })
