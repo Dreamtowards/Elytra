@@ -99,13 +99,15 @@ export default defineConfig({
       {
         text: 'Rendering',
         items: [
-          { text: 'Prelude', link: '/markdown-examples' },
+          { text: 'Prelude', link: '/render/' },
           { 
-            text: 'Postmodern OpenGL 4', 
+            text: 'Postmodern OpenGL 4',
+            link: '/render/opengl4/',
             collapsed: true,
             items: [
-              { text: 'MultiDraw Indirect. MDI', link: '/voxel/render/lod' },
-              { text: 'Compute Shader', link: '/voxel/render/culling-chunks' },
+              { text: 'MultiDraw Indirect. MDI', link: '/render/lod' },
+              { text: 'Compute Shader', link: '/render/culling-chunks' },
+              { text: 'Draw Functions', link: '/render/opengl4/draw-functions' },
             ]
           },
           { text: 'Vulkan Hell', link: '/markdown-examples' },
