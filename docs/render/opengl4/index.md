@@ -1,9 +1,11 @@
 
 
-# Postmodern OpenGL 4 | 后现代 OpenGL 系列
+# Postmodern OpenGL 4 / 后现代 OpenGL 系列
 
 > 本系列适合已经了解现代 OpenGL3 并具备一定图形学基础的读者。  
-> 如果您还不熟悉 OpenGL，可以先查看这些资源:  [LearnOpenGL](https://learnopengl.com/) [[CN]](https://learnopengl-cn.github.io/),
+> 如果您还不熟悉 OpenGL，可以先查看这些资源:
+[LearnOpenGL](https://learnopengl.com/) [[CN]](https://learnopengl-cn.github.io/), 
+[Anton](https://antongerdelan.net/opengl/hellotriangle.html)
 
 > 其实，这个系列的名称本该是 "Advanced OpenGL 4"，之所以用了这个略带戏虐的“后现代”名字，
 是因为.. 我们亲爱的OpenGL 或许会有一天消失 它至今陪伴了我们30余年，然而可能会被恐怖的Vulkan，亦或新秀wgpu取代。

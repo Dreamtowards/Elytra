@@ -131,6 +131,9 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'About', link: '/misc/about' },
+          { text: 'Time Management', link: '/misc/time-management' },
+          { text: 'Writing Workflow', link: '/misc/writing-workflow' },
+          { text: 'Legacy Projects', link: '/misc/legacy-projects' },
           { 
             text: 'Algorithms', 
             collapsed: true,

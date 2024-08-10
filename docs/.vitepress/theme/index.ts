@@ -8,6 +8,7 @@ import {
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
+import "./style.css"
 // import './styles/vars.css'
 // import './styles/main.css'
 

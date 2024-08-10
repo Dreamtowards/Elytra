@@ -5,7 +5,7 @@ layout: home
 hero:
   name: 
   text: Elytra #"<img src='/assets/elytra-corp.png' style='height: 64px; '>"
-  tagline: Personal Blog # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
+  tagline: Concentrate, Passionate, Meditation # Meditation Transcendent # <small>we living in a twilight world, there are no friends at dusk huh</small> # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
   actions:
     - theme: brand
       text: Voxel
