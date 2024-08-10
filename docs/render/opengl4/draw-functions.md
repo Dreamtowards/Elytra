@@ -399,24 +399,85 @@ void glMultiDrawArraysIndirectCount(GLenum mode, const void *indirect, GLintptr 
 void glMultiDrawElementsIndirectCount(GLenum mode, GLenum type, const void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
 ```
 
-Indirect Draw直接渲染GPU中的数据，省去GPU->CPU->GPU的拷贝过程。
+Indirect Draw 允许你将绘制命令的参数（如顶点数量、实例数量等）存储在GPU内存中， 并由GPU直接读取这些参数进行绘制，而不是通过CPU传递。直接渲染GPU中的数据，省去GPU->CPU->GPU的拷贝过程。
+
 运行时数据来源可能是Compute Shader，也可能是Geometry Shader + Transform Feedback，甚至可能是OpenCL/CUDA。
 
+这种方法不仅减少了CPU与GPU之间的数据传输，还允许GPU动态生成或修改绘制命令，提高了绘制的灵活性和性能。
+
+用途：
+- 减少CPU开销: Indirect Draw减少了CPU向GPU传递绘制参数的次数，降低了API调用的频率，适合大量绘制调用的场景。
+- 动态绘制: 绘制参数可以由GPU计算生成，适合需要动态调整绘制内容的场景，例如在计算着色器中生成绘制命令。
+- 批量绘制: 可以通过一个调用绘制多个对象，而不需要频繁切换上下文。
+
+### Draw Indirect
+
+
+
+用例:
+
+```cpp
+// 定义绘制参数结构体
+struct DrawArraysIndirectCommand {
+    GLuint count;           // 顶点数量
+    GLuint instanceCount;   // 实例数量
+    GLuint first;           // 起始顶点索引
+    GLuint baseInstance;    // 基础实例索引
+};
+
+// 顶点数据
+GLfloat vertices[] = {
+  -0.5f, -0.5f, 0.0f,
+   0.5f, -0.5f, 0.0f,
+   0.0f,  0.5f, 0.0f
+};
+// ... 创建VAO和VBO
+
+// 设置间接绘制命令
+DrawArraysIndirectCommand drawCommand;
+drawCommand.count = 3;          // 绘制3个顶点
+drawCommand.instanceCount = 1;  // 实例数量为1
+drawCommand.first = 0;          // 从第0个顶点开始
+drawCommand.baseInstance = 0;   // 基础实例为0
+
+// 创建和绑定一个缓冲区来存储间接绘制命令
+GLuint indirectBuffer;
+glGenBuffers(1, &indirectBuffer);
+glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
+glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(drawCommand), &drawCommand, GL_STATIC_DRAW);
+
+// 渲染循环
+while (!glfwWindowShouldClose(window)) {
+  glClear(GL_COLOR_BUFFER_BIT);
+  
+  glBindVertexArray(VAO);
+  
+  // 使用间接绘制命令进行绘制
+  glDrawArraysIndirect(GL_TRIANGLES, nullptr);
+  
+  glfwSwapBuffers(window);
+  glfwPollEvents();
+}
+
+// 清理资源
+glDeleteVertexArrays(1, &VAO);
+glDeleteBuffers(1, &VBO);
+glDeleteBuffers(1, &indirectBuffer);
+
+```
 
 
 
 
-### glDrawArraysIndirect
 
-### glDrawElementsIndirect
 
-### glMultiDrawArraysIndirect
 
-### glMultiDrawElementsIndirect
 
-### glMultiDrawArraysIndirectCount
 
-### glMultiDrawElementsIndirectCount
+### MultiDraw Indirect (Count)
+
+[Litasa](https://litasa.github.io/blog/2017/09/04/OpenGL-MultiDrawIndirect-with-Individual-Textures)
+[Ktstephano](https://ktstephano.github.io/rendering/opengl/mdi)
 
 
 
@@ -451,17 +512,82 @@ Indirect Draw直接渲染GPU中的数据，省去GPU->CPU->GPU的拷贝过程。
 
 
 
-## VI. Transform Feedback (Stream)
+## VI. Transform Feedback
 
 APIs:
+- glDrawTransformFeedback(Stream)(+)(Instanced)
 ```cpp
-
+void glDrawTransformFeedback(GLenum mode, GLuint id);  // since 4.0
+void glDrawTransformFeedbackStream(GLenum mode, GLuint id, GLuint stream); 
+void glDrawTransformFeedbackInstanced(GLenum mode, GLuint id, GLsizei instancecount);  // since 4.2
+void glDrawTransformFeedbackStreamInstanced(GLenum mode, GLuint id, GLuint stream, GLsizei instancecount);
 ```
 
-### glDrawTransformFeedback(Stream)(+)(Instanced)
+glDrawTransformFeedback 系列函数用于从Transform Feedback对象中直接绘制。
+
+Transform Feedback是一种允许你捕获顶点着色器或几何着色器输出的机制，并将其存储在缓冲区对象中。
+glDrawTransformFeedback 函数则可以利用这些存储的顶点数据直接进行绘制，而无需再次传递数据给GPU。
+
+用途
+- 避免CPU和GPU之间的数据传输: 使用Transform Feedback可以避免CPU参与到GPU的数据管理和传输过程中，从而减少了不必要的开销。
+- 粒子系统: 通常用于粒子系统或其他需要大量顶点数据处理的场景。你可以生成并捕获粒子的下一个状态，然后直接使用这些数据进行绘制。
+- 几何数据捕获与渲染: 可以用于捕获复杂的几何数据并进行后续的多次渲染，而无需重新计算或传输数据。
 
 
+#### 用例
+```cpp
+const char* feedbackVaryings[] = { "gl_Position" };
 
+// ... 创建VAO和VBO
+
+// 设置Transform Feedback Varyings
+glTransformFeedbackVaryings(shaderProgram, 1, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
+
+// 创建Transform Feedback缓冲区
+GLuint tbo;
+glGenBuffers(1, &tbo);
+glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, tbo);
+glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, sizeof(vertices), NULL, GL_STATIC_READ);
+glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, tbo);
+
+// 开始Transform Feedback
+glUseProgram(shaderProgram);
+glBindVertexArray(VAO);
+    
+glEnable(GL_RASTERIZER_DISCARD);  // 禁止光栅化，仅捕获顶点着色器的输出数据
+glBeginTransformFeedback(GL_TRIANGLES);
+glDrawArrays(GL_TRIANGLES, 0, 3);
+glEndTransformFeedback();
+glDisable(GL_RASTERIZER_DISCARD);
+
+// 使用Transform Feedback数据进行绘制
+while (!glfwWindowShouldClose(window)) {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glBindBuffer(GL_ARRAY_BUFFER, tbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glDrawTransformFeedback(GL_TRIANGLES, tbo);
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+// 清理资源
+glDeleteVertexArrays(1, &VAO);
+glDeleteBuffers(1, &VBO);
+glDeleteBuffers(1, &tbo);
+glDeleteProgram(shaderProgram);
+```
+```glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+void main() {
+    gl_Position = vec4(aPos, 1.0);
+}
+```
 
 
 ## VII. Conditional Rendering
