@@ -1,28 +1,34 @@
 
-# All Draw Functions in OpenGL 4.6
+# OpenGL (4.6) 中的所有 Draw Functions
 
-截止目前最新的 OpenGL 4.6，共有这些DrawCall函数:
-
-
-::: details ALL FUNCTIONS
-
-![img.png](res/gl46-all-drawfuncs.png)
-P.S. glDrawBuffer(s) 不算，那是设置 RenderTarget 的
-:::
 
 
 
 ## Overview
 
-总的来说可以被分为 
+截止目前(2024)最新的 OpenGL 4.6 (2017)，共有这些DrawCall函数:
 
-- (Basic) Draw: 绘制单个对象   
-  `glDrawArrays`, `glDrawElements`..
-- MultiDraw: 一次调用 绘制多个(foreach-like)，避免状态切换/验证的开销
-- Instanced Draw: 批量"重复"渲染 但引入gl_InstanceID或Instance VertexAttribute
-- Indirect Draw (数据来自GPU  
-- Transform Feedback Draw
-- BaseInstance, BaseVertex
+::: details ALL FUNCTIONS
+![img.png](res/gl46-all-drawfuncs.png)
+P.S. glDrawBuffer(s) 不算，那是设置 RenderTarget 的
+:::
+
+他们可以被分为 
+
+1. ***(Basic) Draw***: 绘制单个   
+  `glDraw<Arrays/Elements>`..
+2. ***MultiDraw***: 一次调用 绘制多个(foreach-like)，避免状态切换/验证的开销    
+  `glMultiDraw<Arrays/Elements>[Indirect|IndirectCount]`..
+3. ***Instanced Draw***: 批量"重复"渲染 但引入gl_InstanceID或Instance VertexAttribute  
+  `glDraw<Arrays/Elements>Instanced[BaseInstance]`..
+4. ***Indirect Draw***: 数据来自GPU, 允许GPU动态生成绘制命令  
+  `gl[Multi]Draw<Arrays/Elements>Indirect[Count]`..
+5. ***BaseVertex, BaseInstance***: baseVertex是EBO索引**值**的偏移量; baseInstance是InstanceArrays的顶点数据偏移量  
+  `glDrawElements<BaseVertex/+/BaseInstance>`, `glDrawArraysInstancedBaseInstance`...
+6. ***Transform Feedback Draw***: 从Transform Feedback对象中直接绘制。(Transform Feedback特性可捕获Vertex Shader或Geometry Shader的输出，并存储在VBO中)  
+  `glDrawTransformFeedback[Stream/+/Instanced]`
+7. ***Conditional Rendering***: 条件渲染 仅在满足特定 Query 条件时才渲染  
+  `gl<Begin/End>ConditioinalRender`
 
 
 ## I. Basic Draw
@@ -35,7 +41,7 @@ void glDrawRangeElements(GLenum mode, GLuint start, GLuint end, GLsizei count, G
 
 ```
 
-这些是最基本的绘制函数，通常用于渲染单个对象。
+这些是最基本的绘制函数，通常用于渲染单个。
 
 
 ### 1. [glDrawArrays](https://docs.gl/gl4/glDrawArrays)
@@ -329,9 +335,8 @@ void glDrawElementsInstancedBaseVertexBaseInstance(GLenum mode, GLsizei count, G
 [LearnOpenGL - Instancing](https://learnopengl.com/Advanced-OpenGL/Instancing), [ThinMatrix - Instancing](https://www.youtube.com/watch?v=Rm-By2NJsrc)。
 但这里也总结概括一下，
 
-### 两种方法 Instance VertexAttribute or Uniform
 
-#### 方法1 - Instance Arrays (VBO VertexAttribute)
+### 方法1 - Instance Arrays (VBO VertexAttribute)
 
 Host (C++):
 ```cpp
@@ -355,7 +360,7 @@ Shader (GLSL):
 layout (location = 2) in vec3 instancePos;
 ```
 
-#### 方法2 - Uniform + gl_InstanceID
+### 方法2 - Uniform + gl_InstanceID
 缺点: 不推荐超过100个(如300个可能会崩溃或慢)，因为uniform数据内存很有限。
 然而instancing渲染上万个都有可能，因此这种方法是比较有限制的。
 
@@ -386,6 +391,12 @@ vec3 pos = instancePos[gl_InstanceID];
 
 
 
+
+
+
+
+
+
 ## IV. Indirect Draw
 
 APIs:
@@ -399,7 +410,8 @@ void glMultiDrawArraysIndirectCount(GLenum mode, const void *indirect, GLintptr 
 void glMultiDrawElementsIndirectCount(GLenum mode, GLenum type, const void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
 ```
 
-Indirect Draw 允许你将绘制命令的参数（如顶点数量、实例数量等）存储在GPU内存中， 并由GPU直接读取这些参数进行绘制，而不是通过CPU传递。直接渲染GPU中的数据，省去GPU->CPU->GPU的拷贝过程。
+Indirect Draw 允许你将绘制命令的参数（如顶点数量、实例数量等）存储在GPU内存中， 并由GPU直接读取这些参数进行绘制，而不是通过CPU传递。
+直接渲染GPU中的数据，省去GPU->CPU->GPU的拷贝过程。
 
 运行时数据来源可能是Compute Shader，也可能是Geometry Shader + Transform Feedback，甚至可能是OpenCL/CUDA。
 
@@ -410,9 +422,33 @@ Indirect Draw 允许你将绘制命令的参数（如顶点数量、实例数量
 - 动态绘制: 绘制参数可以由GPU计算生成，适合需要动态调整绘制内容的场景，例如在计算着色器中生成绘制命令。
 - 批量绘制: 可以通过一个调用绘制多个对象，而不需要频繁切换上下文。
 
+https://stackoverflow.com/questions/19534284/what-are-the-advantage-of-using-indirect-rendering-in-opengl
+
+### Q: 需要 Compute Shader 吗?
+
+Compute Shader 并不是必须的，但如果你希望在 GPU 上动态生成或更新 Draw Indirect 的参数（例如用 Compute Shader 生成绘制命令），那么就需要使用 Compute Shader。
+
+Draw Indirect 本身 并不依赖于 Compute Shader，但它们可以结合使用，特别是当你需要 GPU 端动态生成或修改绘制命令时。
+
+
 ### Draw Indirect
 
+#### 1. [glDrawArraysIndirect](https://docs.gl/gl4/glDrawArraysIndirect)
 
+glDrawArraysIndirect 的功能类似于 [glDrawArraysInstancedBaseInstance](https://docs.gl/gl4/glDrawArraysInstancedBaseInstance) - 除了其绘制参数是在GPU上的 (GL_DRAW_INDIRECT_BUFFER VBO)
+
+```cpp
+struct DrawArraysIndirectCommand {
+    uint  count;
+    uint  instanceCount;
+    uint  first;
+    uint  baseInstance;
+};
+
+const DrawArraysIndirectCommand *cmd = (const DrawArraysIndirectCommand *)indirect;
+glDrawArraysInstancedBaseInstance(mode, cmd->first, cmd->count, cmd->instanceCount, cmd->baseInstance);
+```
+参数 indirect: 如果届时 GL_DRAW_INDIRECT_BUFFER 已被绑定，那么 indirect 将会被解释为一个偏移量 (in bytes?)。那是一块 GPU 中的内存 (GL_DRAW_INDIRECT_BUFFER VBO)，而不是 CPU 内存。
 
 用例:
 
@@ -449,11 +485,13 @@ glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(drawCommand), &drawCommand, GL_STAT
 // 渲染循环
 while (!glfwWindowShouldClose(window)) {
   glClear(GL_COLOR_BUFFER_BIT);
-  
+
+  glUseProgram(shaderProgram);
   glBindVertexArray(VAO);
+  glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
   
   // 使用间接绘制命令进行绘制
-  glDrawArraysIndirect(GL_TRIANGLES, nullptr);
+  glDrawArraysIndirect(GL_TRIANGLES, NULL);
   
   glfwSwapBuffers(window);
   glfwPollEvents();
@@ -463,11 +501,34 @@ while (!glfwWindowShouldClose(window)) {
 glDeleteVertexArrays(1, &VAO);
 glDeleteBuffers(1, &VBO);
 glDeleteBuffers(1, &indirectBuffer);
-
+glDeleteProgram(shaderProgram);
 ```
 
 
+#### 2. [glDrawElementsIndirect](https://docs.gl/gl4/glDrawElementsIndirect)
 
+glDrawElementsIndirect 的功能相当于 glDrawElementsInstancedBaseVertexBaseInstance - 除了绘制参数是存在 GPU 上的 (GL_DRAW_INDIRECT_BUFFER  VBO)
+
+```cpp
+struct DrawElementsIndirectCommand {
+    uint  count;
+    uint  instanceCount;
+    uint  firstIndex;
+    int   baseVertex;
+    uint  reservedMustBeZero;
+};
+// @param indirect will be interpreted as an offset if a buffer is bound to the GL_DRAW_INDIRECT_BUFFER binding at the time of a call to glDrawElementsIndirect.
+void glDrawElementsIndirect(GLenum mode, GLenum type, const void * indirect) {
+    const DrawElementsIndirectCommand *cmd  = (const DrawElementsIndirectCommand *)indirect;
+    glDrawElementsInstancedBaseVertexBaseInstance(mode,
+                                                  cmd->count,
+                                                  type,
+                                                  cmd->firstIndex * size-of-type,
+                                                  cmd->primCount,
+                                                  cmd->baseVertex,
+                                                  cmd->baseInstance);
+}
+```
 
 
 
@@ -492,25 +553,48 @@ glDeleteBuffers(1, &indirectBuffer);
 
 ## V. Base Vertex, Base Instance
 
-### glDrawElementsBaseVertex
+APIs:
+- glDrawElementsBaseVertex
+- glDrawElementsInstanced<BaseVertex/+/BaseInstance>
+- glDrawRangeElementsBaseVertex
+- glDrawArraysInstancedBaseInstance
+```cpp
+// Since GL 3.2 or ARB_draw_elements_base_vertex 
+void glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex);
+void glDrawElementsInstancedBaseInstance(GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLuitn baseinstance)
+void glDrawElementsInstancedBaseVertex(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLsizei instancecount, GLint basevertex)
+void glDrawElementsInstancedBaseVertexBaseInstance(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLsizei instancecount, GLint basevertex, GLuitn baseinstance)
+void glDrawRangeElementsBaseVertex(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex)
+void glDrawArraysInstancedBaseInstance(GLenum mode, GLint first, GLsizei count, GLsizei primcount, GLuint baseinstance)
+```
 
-### glDrawArraysInstancedBaseInstance
+### BaseVertex
 
-### glDrawElementsBaseInstance
+basevertex: Specifies a constant that should be added to each element of indices when chosing elements from the enabled vertex arrays.
 
-### glDrawElementsBaseVertex
+BaseVertex 是一个整数偏移量，用于在绘制时指定顶点索引的起点。它的主要用途是在绘制时允许你在一个大的顶点缓冲区（VBO）中使用不同的部分，而不必切换或重新绑定缓冲区。它可以与索引缓冲区（EBO）结合使用。
 
-### glDrawElementsInstancedBaseVertexBaseInstance
-
-
+典型的使用场景：当你有多个对象的顶点数据存储在一个大的顶点缓冲区中，而索引缓冲区中存储的是相对于各个对象的本地索引时，BaseVertex 可以帮助你在绘制不同对象时偏移索引，从而正确引用顶点数据。
 
 
 
+### BaseInstance
+
+baseinstance: Specifies the base instance for use in fetching instanced vertex attributes.
 
 
+#### 注意:
+
+gl_InstanceID: 即便 baseInstance 不为0，gl_InstanceID也仍然是从0开始的 每次+1，不会受 baseInstance 或 glVertexAttribDivisor 影响。
+[see](https://docs.gl/gl4/glDrawElementsInstancedBaseInstance#:~:text=Note%20that%20baseinstance%20does%20not%20affect%20the%20shader%2Dvisible%20value%20of%20gl_InstanceID.)
+
+Instance Arrays: `(gl_InstanceID / divisor) + baseInstance` 是从 Instance Vertex Attribute 中取出的顶点的索引公式。
+[see](https://docs.gl/gl4/glDrawElementsInstancedBaseInstance#:~:text=The%20index%20of%20the%20vertex%20fetched%20from%20the%20enabled%20instanced%20vertex%20attribute%20arrays%20is%20calculated%20as)
 
 
-
+意义:
+- 减少绑定和数据拷贝：利用 BaseVertex 和 BaseInstance，你可以在一个大的顶点缓冲区或实例缓冲区中绘制不同的对象或实例，而不必频繁切换缓冲区或重新绑定数据。
+- 更灵活的绘制：这些参数允许更灵活地控制顶点和实例的选择，从而提高渲染的效率和灵活性。
 
 ## VI. Transform Feedback
 
@@ -655,6 +739,7 @@ glDeleteBuffers(1, &VBO);
 glDeleteQueries(1, &query);
 ```
 
-### Resources
+## Resources
 
-> https://www.bilibili.com/read/cv1823723/
+- https://www.bilibili.com/read/cv1823723/
+- https://github.com/GameEngineProgramming/OpenGLTutorialCode/blob/master/3dTriangle/src/main.cpp#L164

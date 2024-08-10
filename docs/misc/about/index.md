@@ -56,7 +56,7 @@ Dev
 [Up Void](https://upvoid.com/),
 
 [szszss](http://blog.hakugyokurou.net/?p=785),
-[Saurlax](https://www.saurlax.com/),
+[Saurlax](https://saurlax.com/),
 [Clansty](https://clansty.com/),
 
 Misc  

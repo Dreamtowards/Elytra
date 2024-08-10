@@ -105,12 +105,14 @@ export default defineConfig({
             link: '/render/opengl4/',
             collapsed: true,
             items: [
-              { text: 'MultiDraw Indirect. MDI', link: '/render/lod' },
-              { text: 'Compute Shader', link: '/render/culling-chunks' },
-              { text: 'Draw Functions', link: '/render/opengl4/draw-functions' },
+              { text: 'All Draw Functions', link: '/render/opengl4/draw-functions' },
+              { text: 'Compute Shader', link: '/render/opengl4/compute-shader' },
+              { text: 'MultiDraw Indirect. MDI', link: '/render/opengl4/multidraw-indirect' },
             ]
           },
           { text: 'Vulkan Hell', link: '/markdown-examples' },
+          { text: 'Atmosphere', link: '/render/atmosphere' },
+          { text: 'The Acid Matrix of Inception', link: '/render/atmosphere' },
         ]
       },
       {
@@ -132,6 +134,7 @@ export default defineConfig({
         items: [
           { text: 'About', link: '/misc/about' },
           { text: 'Time Management', link: '/misc/time-management' },
+          { text: 'Autonomous Learning', link: '/misc/autonomous-learning' },
           { text: 'Writing Workflow', link: '/misc/writing-workflow' },
           { text: 'Legacy Projects', link: '/misc/legacy-projects' },
           { 
