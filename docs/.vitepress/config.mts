@@ -108,7 +108,7 @@ export default defineConfig({
       {
         text: 'Graphics',
         items: [
-          { text: 'Prelude', link: '/graphics/' },
+          { text: 'Overview', link: '/graphics/' },
           { 
             text: 'Postmodern OpenGL 4',
             link: '/graphics/opengl4/',
@@ -124,7 +124,7 @@ export default defineConfig({
               { text: 'Indexed Compression', link: '/graphics/opengl4/indexed-vertices' },
             ]
           },
-          { text: 'Vulkan Hell', link: '/graphics/vulkan' },
+          { text: 'Modern Graphics APIs', link: '/graphics/vulkan' },
           {
             text: 'GFX',
             collapsed: true,
@@ -147,8 +147,36 @@ export default defineConfig({
         text: 'Physics',
         items: [
           { text: 'Overview', link: '/physics/' },
-          { text: 'Collection Detection', link: '/physics/collision' },
-          { text: 'Constraint Solver', link: '/physics/collision' },
+          {
+            text: 'Prelude',
+            collapsed: true,
+            items: [
+
+            ]
+          },
+          {
+            text: 'Collection Detection',
+            collapsed: true,
+            items: [
+              {
+                text: 'Broadphase',
+                collapsed: true,
+                items: [
+                  { text: 'DBVT', link: '/physics/collision-detection/broadphase/dbvt' },
+                  { text: 'Sweep and Prune', link: '/physics/collision-detection/broadphase/sweep-and-prune' },
+                ]
+              },
+              { text: 'GJK & EPA', link: '/physics/collision-detection/gjk-epa' },
+              { text: 'Primitives', link: '/physics/collision-detection/gjk-epa' },
+            ]
+          },
+          {
+            text: 'Constraint Solver',
+            collapsed: true,
+            items: [
+              { text: 'Sequential Impulse Solver', link: '/physics/constraint-solver' },
+            ]
+          },
           { text: 'Ragdoll & IK', link: '/physics/ragdoll' },
         ]
       },

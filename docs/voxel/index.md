@@ -60,18 +60,23 @@ Chunks连通性剔除、
 ### IV. Procedual WorldGen
 
 1. **Noise**  
-  多种噪声类型的特点 (Perlin, Simplex, Value, Celluar)，组合噪声。
+多种噪声类型的特点 (Perlin, Simplex, Value, Celluar)，组合噪声。
 2. **Biomes**  
-  根据温度湿度确立的Biomes，边缘过渡
-3. *Minecraft 地形生成分析* (番外)  
-  刨析Minecraft地形生成过程 老方法与新方法
+根据温度湿度确立的Biomes，边缘过渡
+3. **L-system**  
+L-system在建筑生成的用法与原理，结合表达式定义生产过程。参考 Miguel Cepero 的生成方法。
+4. **Wave Function Collapse, WFC**  
+WFC生成建筑
+5. *Minecraft 地形生成分析* (番外)  
+刨析Minecraft地形生成过程 老方法与新方法
 
 
 ### Misc
 
 - Rendering Massive Voxel Terrain. 大规模体素地形渲染
+- Minecraft 性能优化模组分析 (Sodium, OptiFine)
 - Teardown 技术分析
 - Dauglas Voxel 技术分析
-- Minecraft 性能优化模组分析 (Sodium, OptiFine)
 - Gore Voxel 技术分析
+- Xima Voxel 技术分析
 - Profiling for CPU & GPU
