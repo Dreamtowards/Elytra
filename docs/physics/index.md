@@ -6,16 +6,37 @@
 在开始之前，或许我们该了解，物理引擎有哪些种类。
 
 - [PhysX](https://github.com/NVIDIA-Omniverse/PhysX) NVIDIA 开发的物理引擎，Unity Unreal 的默认物理引擎。
-- [JoltPhysics](https://github.com/jrouwe/JoltPhysics) 
+- [JoltPhysics](https://github.com/jrouwe/JoltPhysics) 新秀，已被商业游戏"Horizon Forbidden West"使用，多线程，部分性能测试甚至高过PhysX
 - [BulletPhysics](https://github.com/bulletphysics/bullet3)
 - [Avian (formally bevyXPBD)](https://github.com/Jondolf/avian) Made with Bevy & Rust & ECS.
 - [Havok]()
-- [OGE]()
 
 
 ## 框架
 
-```rust
+
+::: code-group
+
+```cpp [C++]
+
+void StepSimulation() {
+
+    PredictUnconstraintedMotion();
+
+    PerformDiscreteCollisionDetection();
+
+    CalculateSimulationIslands();
+
+    SolveConstraints(delta);
+
+    IntegrateTransforms(delta);
+
+    UpdateActivationState(delta);
+}
+```
+
+```rust [Rust]
+
 fn step_simulation(self, f32 delta) {
 
     predict_unconstrainted_motion(self, delta);
@@ -68,3 +89,4 @@ fn integrate_transforms(self) {
     }
 }
 ```
+:::

@@ -13,7 +13,8 @@ export default defineConfig({
     `window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-CSR36R1EGY');`]
+    gtag('config', 'G-CSR36R1EGY');`],
+    // ['script', { async: '', src: '//clustrmaps.com/map_v2.js?d=CjkjO_lbXjEDHs5kmXfnU4xsNf-CgStYgdHc7uoUTcg&cl=ffffff&w=a' }]
   ],
   cleanUrls: true,  // no .html suffix
   metaChunk: true,  // more Cache?
@@ -29,8 +30,8 @@ export default defineConfig({
         text: 'About',
         items: [
           { text: "me Dreamtowrds", link: 'misc/about' },
-          { text: "Time Management", link: 'misc/time-management' },
-          { text: "Autonomous Learning", link: 'misc/autonomous-learning' },
+          { text: "Time Management", link: 'misc/about/time-management' },
+          { text: "Autonomous Learning", link: 'misc/about/autonomous-learning' },
         ]
       },
     ],
@@ -54,39 +55,38 @@ export default defineConfig({
             text: 'Rendering',
             collapsed: true,
             items: [
-              { text: 'LoD', link: '/voxel/render/lod' },
-              { text: 'Culling Chunks', link: '/voxel/render/culling-chunks' },
-              { text: 'Ray Marching', link: '/voxel/render/raymarching' },
-              { text: 'VXGI', link: '/voxel/render/raymarching' },
+              { text: 'LoD', link: '/voxel/rendering/lod' },
+              { text: 'Culling Chunks', link: '/voxel/rendering/culling-chunks' },
+              { text: 'Ray Marching', link: '/voxel/rendering/raymarching' },
+              { text: 'Voxel Global Illumination', link: '/voxel/rendering/voxel-global-illumination' },
               { 
                 text: 'Isosurface', 
                 collapsed: true,
                 items: [
-                  { text: 'Marching Cubes & Transvoxel', link: '/voxel/render/lod' },
-                  { text: 'Surface Nets & Dual Contouring', link: '/voxel/render/lod' },
+                  { text: 'Marching Cubes & Transvoxel', link: '/voxel/meshgen/marching-cubes' },
+                  { text: 'Surface Nets & Dual Contouring', link: '/voxel/meshgen/surface-nets' },
                 ]
               },
-              { text: 'Massive Terrain Rendering', link: '/voxel/render/lod' },
-            ]
-          },
-          { 
-            text: 'Procedual WorldGen', 
-            collapsed: true,
-            items: [
-              { text: 'Noises, Voronoi', link: '/voxel/render/lod' },
-              { text: 'Biomes', link: '/voxel/render/culling-chunks' },
             ]
           },
           { 
             text: 'Simulating', 
             collapsed: true,
             items: [
-              { text: 'Liquid Flooding', link: '/voxel/render/lod' },
-              { text: 'Lighting', link: '/voxel/render/culling-chunks' },
-              { text: 'Connectivity', link: '/voxel/render/culling-chunks' },
-              { text: 'Explosion', link: '/voxel/render/culling-chunks' },
-              { text: 'Fire Spread', link: '/voxel/render/culling-chunks' },
-              { text: 'PhysX Integration', link: '/voxel/render/culling-chunks' },
+              { text: 'Liquid Flooding', link: '/voxel/sim/liquid' },
+              { text: 'Lighting', link: '/voxel/sim/lighting' },
+              { text: 'Connectivity', link: '/voxel/sim/connectivity' },
+              { text: 'Fire Spread', link: '/voxel/sim/fire-spread' },
+              { text: 'Explosion', link: '/voxel/sim/explosion' },
+              { text: 'PhysX Integration', link: '/voxel/sim/physx-integration' },
+            ]
+          },
+          { 
+            text: 'Procedual WorldGen', 
+            collapsed: true,
+            items: [
+              { text: 'Noises', link: '/voxel/worldgen/noises' },
+              { text: 'Biomes', link: '/voxel/worldgen/biomes' },
             ]
           },
           { 
@@ -98,6 +98,8 @@ export default defineConfig({
               { text: 'Douglas\'s Voxel Study', link: '/voxel/render/culling-chunks' },
               { text: 'Gore\'s Voxel Study', link: '/voxel/render/culling-chunks' },
               { text: 'Minecraft Performance Mods Analysis', link: '/voxel/misc/minecraft-perf' },
+              { text: 'Massive Terrain Rendering', link: '/voxel/render/lod' },
+              { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
               
             ]
           },
@@ -123,13 +125,20 @@ export default defineConfig({
             ]
           },
           { text: 'Vulkan Hell', link: '/graphics/vulkan' },
-          { text: 'Atmosphere', link: '/graphics/gfx/atmosphere' },
           {
             text: 'GFX',
-            link: '/graphics/gfx/',
             collapsed: true,
             items: [
               { text: 'The Acid Matrix of Inception', link: '/graphics/gfx/inception-acid' },
+            ]
+          },
+          {
+            text: 'Misc',
+            collapsed: true,
+            items: [
+              { text: 'Atmosphere', link: '/graphics/gfx/atmosphere' },
+              { text: 'Anti Aliasing', link: '/graphics/anti-aliasing' },
+              { text: 'Work Graph', link: '/graphics/work-graph' },
             ]
           },
         ]
@@ -138,22 +147,27 @@ export default defineConfig({
         text: 'Physics',
         items: [
           { text: 'Overview', link: '/physics/' },
-          { text: 'Ragdoll', link: '/physics/ragdoll' },
+          { text: 'Collection Detection', link: '/physics/collision' },
+          { text: 'Constraint Solver', link: '/physics/collision' },
+          { text: 'Ragdoll & IK', link: '/physics/ragdoll' },
         ]
       },
       {
         text: 'Programming Language',
         items: [
-          { text: 'Overview', link: '/markdown-examples' },
+          { text: 'Overview', link: '/langdev' },
+          { text: 'Lexical & Semantical', link: '/langdev' },
+          { text: 'LLVM CodeGen', link: '/langdev' },
+          { text: 'Virtual Machine', link: '/langdev' },
         ]
       },
       {
         text: 'Misc',
-        collapsed: false,
+        // collapsed: false,
         items: [
           {
             text: 'About',
-            link: '/misc/about',
+            link: '/misc/about/',
             collapsed: true,
             items: [
               { text: 'Time Management', link: '/misc/about/time-management' },
@@ -163,7 +177,7 @@ export default defineConfig({
           },
           { text: 'Legacy Projects', link: '/misc/legacy-projects' },
           { 
-            text: 'Algorithms', 
+            text: 'Study', 
             collapsed: true,
             items: [
               { text: 'Flood Fill', link: '/misc/about' },

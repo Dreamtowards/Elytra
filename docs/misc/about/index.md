@@ -1,20 +1,27 @@
 
-[//]: # (# Dreamtowards <small>"LI, PEIYANG"</small> <br><span style="font-size: 20px">VoxelGameDev, Graphics, PL</span>)
-[//]: # (# About)
+<!-- [//]: # (# Dreamtowards <small>"LI, PEIYANG"</small> <br><span style="font-size: 20px">VoxelGameDev, Graphics, PL</span>) -->
+<!-- [//]: # (# About) -->
 
 <div class="avatar" style="float: right">
-<img src="./res/avatar-2024.06-SideForest.jpg" >
-<img src="./res/avatar-2024.07.jpg" style="">
-
-[//]: # (<img src="./res/avatar-2023.11-SideHeadphoneForest.png">)
+<!-- <img src="./res/avatar-2024.06-SideForest.jpg" > -->
+<!-- <img src="./res/avatar-2024.07.jpg" style=""> -->
+<!-- <img src="./res/avatar-2023.11-SideHeadphoneForest.png"> -->
 </div>
 
 <style scoped>
-.avatar img {
-height: 130px; 
-display: inline-block; 
-border-radius: 6px;
-margin-right: 4px;
+.avatar {
+    height: 130px; 
+    width: 130px;
+    display: inline-block; 
+    border-radius: 60px;
+    margin-right: 4px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('./res/avatar-2024.06-SideForest.jpg') ;
+    transition: 5s;
+}
+.avatar:hover {
+    background-image: url('./res/avatar-2024.07.jpg')!important;
 }
 </style>
 
@@ -37,7 +44,7 @@ Hi, I am Dreamtowards ('LI, PEIYANG' in law).
   
 #### Preferences
 
-- Music: re:plus - Blue Sky; Dennis Kuo - Blue Deja Vu. / C418 / 植松伸夫(Nobuo Uematsu) / colate / July
+- Music: re:plus<sup>[Blue Sky](https://www.youtube.com/watch?v=6-QETns5W_Q)</sup> / Dennis Kuo<sup>[Blue Deja Vu](https://www.youtube.com/watch?v=l5YxW0GZmbg)</sup> / [C418](https://www.youtube.com/watch?v=DZ47H84Bc_Q) / [植松伸夫 Nobuo Uematsu]() / [colate](https://www.youtube.com/watch?v=Qdup0ujs9f0) / July
 - Software: Minecraft Beta 1.7.3, Blender, CLion, Google Calendar 
 - Movies: Inception / OtherLife / Interstellar / TENET / Spectral / The Imitation Game / Cloverfield / Maze Runner / Avatar / 2012
 
@@ -55,6 +62,7 @@ Dev
 [Rising World](https://trello.com/b/t5Leypcj/rising-world-development),
 [Up Void](https://upvoid.com/),
 
+[Luna](https://github.com/Luna5ama)[(.dev)](https://about.luna5ama.dev/), 
 [szszss](http://blog.hakugyokurou.net/?p=785),
 [Saurlax](https://saurlax.com/),
 [Clansty](https://clansty.com/),
@@ -63,3 +71,6 @@ Misc
 [Soartex Fanver](https://soartex.net/),
 [Nolebase (VitePress Plugin, Blog of Neko, Ayaka)](https://nolebase.ayaka.io/%E7%AC%94%E8%AE%B0/),
 [How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md), 
+
+
+

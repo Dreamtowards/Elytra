@@ -27,7 +27,7 @@ P.S. glDrawBuffer(s) 不算，那是设置 RenderTarget 的
   `glDrawElements<BaseVertex/+/BaseInstance>`, `glDrawArraysInstancedBaseInstance`...
 6. ***Transform Feedback Draw***: 从Transform Feedback对象中直接绘制。(Transform Feedback特性可捕获Vertex Shader或Geometry Shader的输出，并存储在VBO中)  
   `glDrawTransformFeedback[Stream/+/Instanced]`
-7. ***Conditional Rendering***: 条件渲染 仅在满足特定 Query 条件时才渲染  
+7. ***Conditional Rendering***: (已过时) 条件渲染 仅在满足特定 Query 条件时才渲染  
   `gl<Begin/End>ConditioinalRender`
 
 
@@ -709,6 +709,13 @@ void glDrawElementsIndirect(GLenum mode, GLenum type, const void * indirect) {
 }
 ```
 
+::: details 用例: Instancing + GPU Culling
+比如你就画一堆实例，然后会在gpu上做culling，你就可以用glDrawArraysIndirect来传递剔除之后的数量。- luna
+
+1. compute shader上做culling, 
+2. 然后 CS 改 glDrawArraysIndirect 的 indirect SSBO 
+3. glDrawArraysIndirect 画 instancing
+:::
 
 
 
@@ -719,13 +726,13 @@ void glDrawElementsIndirect(GLenum mode, GLenum type, const void * indirect) {
 [ktstephano](https://ktstephano.github.io/rendering/opengl/mdi), 
 [Litasa](https://litasa.github.io/blog/2017/09/04/OpenGL-MultiDrawIndirect-with-Individual-Textures),
 
-这才是 Indirect 真正强大的地方，可以让跑车在高速上跑的地方而不是在楼梯里跑(上面非Multi-Draw的Indirect)的地方。
+这才是 Indirect 真正强大的地方，MDI 与其他"老"方法的主要区别在于，MDI不是手动提交每个绘制调用（实例或非实例、索引或非索引），而是将绘制调用打包到 GPU 缓冲区中，该缓冲区在绘制之前绑定到 GL_DRAW_INDIRECT_BUFFER 目标。
+这意味着我们不是连续提交多个绘制命令，而是一次提交当前绑定 GPU 缓冲区中的每个绘制调用。
 
 > MDI opens the door to a totally new approach to generating draw commands which supports parallel command creation (either with multiple CPU cores or even on the GPU) and at the same time reduces the amount of time the CPU has to spend submitting draw calls to the driver. It also allows us to reuse draw commands from previous frames if nothing has changed.
 > -- [ktstephano](https://ktstephano.github.io/rendering/opengl/mdi#:~:text=MDI%20opens%20the%20door%20to%20a%20totally%20new%20approach%20to%20generating%20draw%20commands%20which%20supports%20parallel%20command%20creation)
 
-MDI 与其他老方法的主要区别在于，MDI不是手动提交每个绘制调用（实例或非实例、索引或非索引），而是将绘制调用打包到 GPU 缓冲区中，该缓冲区在绘制之前绑定到 GL_DRAW_INDIRECT_BUFFER 目标。
-这意味着我们不是连续提交多个绘制命令，而是一次提交当前绑定 GPU 缓冲区中的每个绘制调用。
+
 
 这就是并行绘制命令生成选项发挥作用的地方。由于在我们绑定并提交绘制命令缓冲区之前，OpenGL 实际上不会对它执行任何操作，因此多个线程可以在我们同步和绘制之前提前将数据写入缓冲区。
 渲染线程将始终提交绘制命令，但多个线程可以在此之前写入绘制命令缓冲区。
@@ -1350,6 +1357,12 @@ void main() {
 
 ## VII. Conditional Rendering
 
+::: warning
+
+完全不推荐使用 很低效过时。只能一次一个，远不如用 indirect
+:::
+
+
 APIs:
 ```cpp
 void glBeginConditioinalRender(GLuint id, GLenum mode);
@@ -1358,6 +1371,11 @@ void glEndConditionalRender(void);
 [glBeginConditionalRender](https://docs.gl/gl4/glBeginConditionalRender) 
 只满足特定条件下渲染，避免不必要的绘制，从而提高性能。
 典型用途是 Occlusion Query。 
+
+::: info
+虽然 occlusion query 也早已过时 - 在这个推崇 GPU driven pipeline 的时代。  
+但当年valve有用这个东西做很骚的操作，利用读取回来的passed sample count来做亮度直方图，用来做做HDR的自动曝光。但是这年头都用compute shader做了，利用shared memory之类的操作来并行求和。- LN 2024.08
+:::
 
 支持的命令:
 - All Draw Functions: glDraw*, glMultiDraw*
