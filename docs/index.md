@@ -11,8 +11,14 @@ hero:
       text: Voxel
       link: /voxel/
     - theme: alt
-      text: Rendering
-      link: /render/
+      text: Graphics
+      link: /graphics/
+    - theme: alt
+      text: PL
+      link: /langdev/
+    - theme: alt
+      text: Physics
+      link: /physics/
     - theme: alt
       text: About
       link: /misc/about

@@ -51,7 +51,7 @@ export default defineConfig({
             ]
           },
           { 
-            text: 'Rendering', 
+            text: 'Rendering',
             collapsed: true,
             items: [
               { text: 'LoD', link: '/voxel/render/lod' },
@@ -104,34 +104,41 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Rendering',
+        text: 'Graphics',
         items: [
-          { text: 'Prelude', link: '/render/' },
+          { text: 'Prelude', link: '/graphics/' },
           { 
             text: 'Postmodern OpenGL 4',
-            link: '/render/opengl4/',
+            link: '/graphics/opengl4/',
             collapsed: true,
             items: [
-              { text: 'All Draw Functions', link: '/render/opengl4/draw-functions' },
-              { text: 'Direct State Access. DSA', link: '/render/opengl4/dsa' },
-              { text: 'SSBOs', link: '/render/opengl4/ssbo' },
-              { text: 'Vertex Pulling', link: '/render/opengl4/vertex-pulling' },
-              { text: 'Compute Shader', link: '/render/opengl4/compute-shader' },
-              { text: 'MultiDraw Indirect. MDI', link: '/render/opengl4/multidraw-indirect' },
-              { text: 'Bindless Texture', link: '/render/opengl4/indexed-vertices' },
-              { text: 'Indexed Compression', link: '/render/opengl4/indexed-vertices' },
+              { text: 'All Draw Functions', link: '/graphics/opengl4/draw-functions' },
+              { text: 'Direct State Access. DSA', link: '/graphics/opengl4/dsa' },
+              { text: 'SSBOs', link: '/graphics/opengl4/ssbo' },
+              { text: 'Vertex Pulling', link: '/graphics/opengl4/vertex-pulling' },
+              { text: 'Compute Shader', link: '/graphics/opengl4/compute-shader' },
+              { text: 'MultiDraw Indirect. MDI', link: '/graphics/opengl4/multidraw-indirect' },
+              { text: 'Bindless Texture', link: '/graphics/opengl4/indexed-vertices' },
+              { text: 'Indexed Compression', link: '/graphics/opengl4/indexed-vertices' },
             ]
           },
-          { text: 'Vulkan Hell', link: '/markdown-examples' },
-          { text: 'Atmosphere', link: '/render/atmosphere' },
-          { text: 'The Acid Matrix of Inception', link: '/render/atmosphere' },
+          { text: 'Vulkan Hell', link: '/graphics/vulkan' },
+          { text: 'Atmosphere', link: '/graphics/gfx/atmosphere' },
+          {
+            text: 'GFX',
+            link: '/graphics/gfx/',
+            collapsed: true,
+            items: [
+              { text: 'The Acid Matrix of Inception', link: '/graphics/gfx/inception-acid' },
+            ]
+          },
         ]
       },
       {
         text: 'Physics',
         items: [
           { text: 'Overview', link: '/physics/' },
-          { text: 'Ragdoll', link: '/markdown-examples' },
+          { text: 'Ragdoll', link: '/physics/ragdoll' },
         ]
       },
       {
@@ -144,10 +151,16 @@ export default defineConfig({
         text: 'Misc',
         collapsed: false,
         items: [
-          { text: 'About', link: '/misc/about' },
-          { text: 'Time Management', link: '/misc/time-management' },
-          { text: 'Autonomous Learning', link: '/misc/autonomous-learning' },
-          { text: 'Writing Workflow', link: '/misc/writing-workflow' },
+          {
+            text: 'About',
+            link: '/misc/about',
+            collapsed: true,
+            items: [
+              { text: 'Time Management', link: '/misc/time-management' },
+              { text: 'Autonomous Learning', link: '/misc/autonomous-learning' },
+              { text: 'Writing Workflow', link: '/misc/writing-workflow' },
+            ]
+          },
           { text: 'Legacy Projects', link: '/misc/legacy-projects' },
           { 
             text: 'Algorithms', 

@@ -8,7 +8,7 @@
 
 截止目前(2024)最新的 OpenGL 4.6 (2017)，共有这些DrawCall函数:
 
-::: details ALL FUNCTIONS
+::: details ALL DRAW FUNCTIONS
 ![img.png](res/gl46-all-drawfuncs.png)
 P.S. glDrawBuffer(s) 不算，那是设置 RenderTarget 的
 :::
