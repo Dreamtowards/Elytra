@@ -8,12 +8,12 @@ export default defineConfig({
   lang: 'en-US',
   head: [
     ['link', { rel: 'icon', href: '/assets/logo-bl.png' }],
-    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=TAG_ID' }],
+    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-CSR36R1EGY' }],
     ['script', {},
     `window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'TAG_ID');`]
+    gtag('config', 'G-CSR36R1EGY');`]
   ],
   cleanUrls: true,  // no .html suffix
   metaChunk: true,  // more Cache?
@@ -156,9 +156,9 @@ export default defineConfig({
             link: '/misc/about',
             collapsed: true,
             items: [
-              { text: 'Time Management', link: '/misc/time-management' },
-              { text: 'Autonomous Learning', link: '/misc/autonomous-learning' },
-              { text: 'Writing Workflow', link: '/misc/writing-workflow' },
+              { text: 'Time Management', link: '/misc/about/time-management' },
+              { text: 'Autonomous Learning', link: '/misc/about/autonomous-learning' },
+              { text: 'Writing Workflow', link: '/misc/about/writing-workflow' },
             ]
           },
           { text: 'Legacy Projects', link: '/misc/legacy-projects' },
