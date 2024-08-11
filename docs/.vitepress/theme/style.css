@@ -3,3 +3,9 @@
 /*.vp-doc h1, .vp-doc h2, .vp-doc h3 {*/
 /*    font-weight: 800!important;*/
 /*}*/
+
+
+/* Glitch Fix: https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-enhanced-readabilities/#:~:text=VitePress%20style%20glitched%3F*/
+.VPSocialLinks.VPNavBarSocialLinks.social-links {
+    margin-right: 0;
+}

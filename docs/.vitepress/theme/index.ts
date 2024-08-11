@@ -5,7 +5,6 @@ import {
   NolebaseEnhancedReadabilitiesMenu, 
   NolebaseEnhancedReadabilitiesScreenMenu, 
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
-
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
 import "./style.css"

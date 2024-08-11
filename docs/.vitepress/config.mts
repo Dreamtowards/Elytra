@@ -25,7 +25,14 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
+      {
+        text: 'About',
+        items: [
+          { text: "me Dreamtowrds", link: 'misc/about' },
+          { text: "Time Management", link: 'misc/time-management' },
+          { text: "Autonomous Learning", link: 'misc/autonomous-learning' },
+        ]
+      },
     ],
 
     sidebar: [
@@ -162,6 +169,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/Dreamtowards/Ethertum' },
       { icon: 'discord', link: 'https://discord.gg/k7ssbPJQnp', ariaLabel: 'cool link' },
       { icon: 'youtube', link: 'https://www.youtube.com/@dreamtowards' },
+      { icon: 'youtube', link: 'https://space.bilibili.com/19483166' },
     ],
     search: {
       provider: 'local'
@@ -177,6 +185,7 @@ export default defineConfig({
     lineNumbers: true
   },
 
+  // https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-enhanced-readabilities/
   vite: { 
     optimizeDeps: { 
       exclude: [ 
@@ -186,7 +195,8 @@ export default defineConfig({
     ssr: { 
       noExternal: [ 
         // If there are other packages that need to be processed by Vite, you can add them here.
-        '@nolebase/vitepress-plugin-enhanced-readabilities', 
+        // '@nolebase/vitepress-plugin-enhanced-readabilities',
+        '@nolebase/*',
       ], 
     }, 
   }, 

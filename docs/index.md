@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: 
-  text: Elytra #"<img src='/assets/elytra-corp.png' style='height: 64px; '>"
+  text: "Elytra <sup style='font-size: 16px;'>Dreamtowards's DB</sup>" #"<img src='/assets/elytra-corp.png' style='height: 64px; '>"
   tagline: Concentrate, Passionate, Meditation # Meditation Transcendent # <small>we living in a twilight world, there are no friends at dusk huh</small> # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
   actions:
     - theme: brand
@@ -13,19 +13,22 @@ hero:
     - theme: alt
       text: Rendering
       link: /render/
+    - theme: alt
+      text: About
+      link: /misc/about
 features:
   - title: Ethertia · 以太效應
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: A Voxel Sandbox Survival Game
     link: https://ethertia.com/showcase
     linkText: ethertia.com
   - title: Minecraft 設計思想 · <small>Thinking in Minecraft</small>
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: History, Ideology and Algorithms
     link: https://elytra.dev/thinking-in-minecraft
     linkText: Webdoc
-  - title: The Elytra Programming Language
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: https://elytra.dev/elytra-lang
-    linkText: Documentation
+#  - title: The Elytra Programming Language
+#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+#    link: https://elytra.dev/elytra-lang
+#    linkText: Documentation
 ---
 
 <br>
