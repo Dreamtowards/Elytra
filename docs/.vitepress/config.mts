@@ -106,8 +106,13 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'All Draw Functions', link: '/render/opengl4/draw-functions' },
+              { text: 'Direct State Access. DSA', link: '/render/opengl4/dsa' },
+              { text: 'SSBOs', link: '/render/opengl4/ssbo' },
+              { text: 'Vertex Pulling', link: '/render/opengl4/vertex-pulling' },
               { text: 'Compute Shader', link: '/render/opengl4/compute-shader' },
               { text: 'MultiDraw Indirect. MDI', link: '/render/opengl4/multidraw-indirect' },
+              { text: 'Bindless Texture', link: '/render/opengl4/indexed-vertices' },
+              { text: 'Indexed Compression', link: '/render/opengl4/indexed-vertices' },
             ]
           },
           { text: 'Vulkan Hell', link: '/markdown-examples' },

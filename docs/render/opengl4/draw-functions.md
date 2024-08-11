@@ -51,15 +51,18 @@ void glDrawArrays(GLenum mode, GLint first, GLsizei count);
 ```
 按照指定的图元类型绘制(如GL_TRIANGLES, GL_POINTS..)，从第first个顶点开始，绘制count个顶点。
 
+**mode**: 图元类型/绘制模式，可以是(下文的首参mode也都一样): GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES, GL_LINE_STRIP_ADJACENCY, GL_LINES_ADJACENCY, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES, GL_TRIANGLE_STRIP_ADJACENCY, GL_TRIANGLES_ADJACENCY, and GL_PATCHES
+
 #### 类似
 - 类似于vulkan的`void vkCmdDraw(VkCommandBuffer commandBuffer,
 uint32_t vertexCount,
 uint32_t instanceCount,
 uint32_t firstVertex,
 uint32_t firstInstance))` (vk instancing draw也是用这个函数)
-- 类似于wgpu的`pub fn RenderPass::draw(&mut self, vertices: Range<u32>, instances: Range<u32>)`
+- 类似于[wgpu](https://docs.rs/wgpu/latest/wgpu/struct.RenderPass.html#method.draw)的
+  `pub fn RenderPass::draw(&mut self, vertices: Range<u32>, instances: Range<u32>)`
 
-##### 用例1 - Use VAO, Full MainLoop
+#### 用例1 - Use VAO, Full MainLoop
 ```cpp{7}
 while(!glfwWindowShouldClose(window)) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -73,7 +76,7 @@ while(!glfwWindowShouldClose(window)) {
   glfwSwapBuffers(window);  // put the stuff we've been drawing onto the display
 }
 ```
-##### 用例2 - Non VAO
+#### 用例2 - Non VAO
 ```cpp{5}
 glBindBuffer(GL_ARRAY_BUFFER, vboId); // Bind VBO
 glEnableVertexAttribArray(0);  // Enable Attribute 
@@ -90,6 +93,8 @@ glBindBuffer(GL_ARRAY_BUFFER, 0); //Unbind
 ```cpp
 void glDrawElements(GLenum mode, GLsizei count, GLenum type, const void * indices);
 ```
+
+**type**: EBO索引元素的类型，可以是 GL_UNSIGNED_INT, GL_UNSIGNED_SHORT, GL_UNSIGNED_BYTE  
 
 最后一个参数 `const void* indices`可能有点[令人迷惑](https://stackoverflow.com/questions/21706113/the-4th-argument-in-gldrawelements-is-what), 这分两种情况:
 - 你绑定了 GL_ELEMENT_ARRAY_BUFFER E(V)BO: 那么这个 indices 将会作为 GL_ELEMENT_ARRAY_BUFFER (Indices VBO)的 byte offset (本质上是个int，但传入时要转成pointer)  
@@ -111,7 +116,7 @@ base_vertex: i32,
 instances: Range<u32>,
 )`
 
-##### 用例1 - Use VAO:
+#### 用例1 - Use VAO:
 ```cpp{4}
 glUseProgram(shaderProgramId);
 glBindVertexArray(vao);
@@ -119,7 +124,7 @@ glBindVertexArray(vao);
 glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ```
 
-::: details 用例2 - Non VAO:
+#### 用例2 - Non VAO:
 ```cpp{25}
 glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer); // vertex_buffer is retrieved from glGenBuffers
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer); // index_buffer is retrieved from glGenBuffers
@@ -148,9 +153,9 @@ glVertexAttribPointer(position_attrib_index, 3, GL_FLOAT, false, vertex_stride, 
 glDrawElements(GL_TRIANGLES, num_vertices, GL_UNSIGNED_INT, NULL);
 
 ```
-:::
 
-::: details 实现隐喻
+
+#### 实现隐喻
 ```cpp
 GLvoid *elementArray;
 
@@ -164,7 +169,6 @@ void glDrawElements(GLenum type, GLint count, GLenum type, GLsizeiptr indices) {
 }
 ```
 from [arcsynthesis](https://web.archive.org/web/20150225192608/http://www.arcsynthesis.org/gltut/Positioning/Tutorial%2005.html#:~:text=Example%C2%A05.2.%C2%A0Draw%20Elements%20Implementation)
-:::
 
 ### 2.1 [glDrawRangeElements](https://docs.gl/gl4/glDrawRangeElements)
 
@@ -401,6 +405,7 @@ vec3 pos = instancePos[gl_InstanceID];
 
 APIs:
 ```cpp
+// Since GL 4.0
 void glDrawArraysIndirect(GLenum mode, const void *indirect);
 void glDrawElementsIndirect(GLenum mode, GLenum type, const void *indirect);
 // MultiDraw Indirect, Since GL 4.3 or ARB_multi_draw_indirect Extension Enabled.
@@ -424,7 +429,7 @@ Indirect Draw 允许你将绘制命令的参数（如顶点数量、实例数量
 
 https://stackoverflow.com/questions/19534284/what-are-the-advantage-of-using-indirect-rendering-in-opengl
 
-### Q: 需要 Compute Shader 吗?
+### Compute Shader 是必要的吗?
 
 Compute Shader 并不是必须的，但如果你希望在 GPU 上动态生成或更新 Draw Indirect 的参数（例如用 Compute Shader 生成绘制命令），那么就需要使用 Compute Shader。
 
@@ -435,7 +440,7 @@ Draw Indirect 本身 并不依赖于 Compute Shader，但它们可以结合使�
 
 #### 1. [glDrawArraysIndirect](https://docs.gl/gl4/glDrawArraysIndirect)
 
-glDrawArraysIndirect 的功能类似于 [glDrawArraysInstancedBaseInstance](https://docs.gl/gl4/glDrawArraysInstancedBaseInstance) - 除了其绘制参数是在GPU上的 (GL_DRAW_INDIRECT_BUFFER VBO)
+glDrawArraysIndirect 的功能类似于 [glDrawArraysInstancedBaseInstance](https://docs.gl/gl4/glDrawArraysInstancedBaseInstance) - 除了其绘制参数是在GPU上的 (GL_DRAW_INDIRECT_BUFFER VBO) 或者你也可以用CPU内存的结构体传入 indirect 参数
 
 ```cpp
 struct DrawArraysIndirectCommand {
@@ -448,9 +453,11 @@ struct DrawArraysIndirectCommand {
 const DrawArraysIndirectCommand *cmd = (const DrawArraysIndirectCommand *)indirect;
 glDrawArraysInstancedBaseInstance(mode, cmd->first, cmd->count, cmd->instanceCount, cmd->baseInstance);
 ```
-参数 indirect: 如果届时 GL_DRAW_INDIRECT_BUFFER 已被绑定，那么 indirect 将会被解释为一个偏移量 (in bytes?)。那是一块 GPU 中的内存 (GL_DRAW_INDIRECT_BUFFER VBO)，而不是 CPU 内存。
 
-用例:
+参数 indirect: 如果届时 GL_DRAW_INDIRECT_BUFFER 已被绑定，那么 indirect 将会被解释为一个偏移量 (in bytes?) 对于那块 GPU 内存 (GL_DRAW_INDIRECT_BUFFER VBO)。否则你可以传个CPU内存的结构体进去。(但不推荐 那就缺失MDI最关键的CS功能了)
+
+##### 用例1 - No ComputeShader, indirect = VBO:
+不太推荐，这似乎并没有啥功能或性能提升。或许还不如直接调 glDrawArraysInstancedBaseInstance?
 
 ```cpp
 // 定义绘制参数结构体
@@ -505,6 +512,178 @@ glDeleteProgram(shaderProgram);
 ```
 
 
+##### 用例2 - With Compute Shader: 
+更不推荐。就算有CS，也只是每次call draw一次。那岂不是慢死。就好像开车上下2楼 明明走路可以更快。
+
+```cpp
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+
+// 顶点着色器源码
+const char* vertexShaderSource = R"(
+#version 330 core
+layout(location = 0) in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+}
+)";
+
+// 片段着色器源码
+const char* fragmentShaderSource = R"(
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+}
+)";
+
+// Compute Shader 源码，生成 Draw Indirect 命令
+const char* computeShaderSource = R"(
+#version 430 core
+struct DrawArraysIndirectCommand {
+    uint count;
+    uint primCount;
+    uint first;
+    uint baseInstance;
+};
+
+layout(std430, binding = 0) buffer CommandBuffer {
+    DrawArraysIndirectCommand command;
+};
+
+void main() {
+    // 假设有 10 个实例，每个实例绘制一个三角形
+    command.count = 3;         // 顶点数
+    command.primCount = 1;     // 实例数
+    command.first = 0;         // 第一个顶点的偏移量
+    command.baseInstance = 0;  // 基本实例ID
+}
+)";
+
+struct DrawArraysIndirectCommand {
+    GLuint count;
+    GLuint primCount;
+    GLuint first;
+    GLuint baseInstance;
+};
+
+int main() {
+    // 初始化 GLFW
+    if (!glfwInit()) {
+        std::cerr << "Failed to initialize GLFW" << std::endl;
+        return -1;
+    }
+
+    // 创建窗口
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Draw Indirect Example", nullptr, nullptr);
+    if (!window) {
+        std::cerr << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwMakeContextCurrent(window);
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        std::cerr << "Failed to initialize GLEW" << std::endl;
+        return -1;
+    }
+
+    // 编译和链接着色器
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+    glCompileShader(vertexShader);
+
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+    glCompileShader(fragmentShader);
+
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // 定义三角形的顶点数据
+    GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+       -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+    };
+
+    GLuint vao, vbo;
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    // 创建 Draw Indirect Command 缓冲区
+    GLuint indirectBuffer;
+    glGenBuffers(1, &indirectBuffer);
+    glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
+    glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(DrawArraysIndirectCommand), nullptr, GL_DYNAMIC_DRAW);
+
+    // 编译和链接 Compute Shader
+    GLuint computeShader = glCreateShader(GL_COMPUTE_SHADER);
+    glShaderSource(computeShader, 1, &computeShaderSource, nullptr);
+    glCompileShader(computeShader);
+
+    GLuint computeProgram = glCreateProgram();
+    glAttachShader(computeProgram, computeShader);
+    glLinkProgram(computeProgram);
+    glDeleteShader(computeShader);
+
+    // 使用 Compute Shader 生成命令
+    glUseProgram(computeProgram);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, indirectBuffer);
+    glDispatchCompute(1, 1, 1);  // 生成一个命令
+    glMemoryBarrier(GL_COMMAND_BARRIER_BIT);  // 保证命令缓冲区可用
+
+    while (!glfwWindowShouldClose(window)) {
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(shaderProgram);
+
+        // 绘制使用 Draw Indirect
+        glBindVertexArray(vao);
+        glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
+        glDrawArraysIndirect(GL_TRIANGLES, nullptr);
+
+        // 交换缓冲区
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    // 清理
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &indirectBuffer);
+    glDeleteProgram(shaderProgram);
+    glDeleteProgram(computeProgram);
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+    return 0;
+}
+```
+
 #### 2. [glDrawElementsIndirect](https://docs.gl/gl4/glDrawElementsIndirect)
 
 glDrawElementsIndirect 的功能相当于 glDrawElementsInstancedBaseVertexBaseInstance - 除了绘制参数是存在 GPU 上的 (GL_DRAW_INDIRECT_BUFFER  VBO)
@@ -535,10 +714,502 @@ void glDrawElementsIndirect(GLenum mode, GLenum type, const void * indirect) {
 
 
 
-### MultiDraw Indirect (Count)
+### MultiDraw Indirect
 
-[Litasa](https://litasa.github.io/blog/2017/09/04/OpenGL-MultiDrawIndirect-with-Individual-Textures)
-[Ktstephano](https://ktstephano.github.io/rendering/opengl/mdi)
+[ktstephano](https://ktstephano.github.io/rendering/opengl/mdi), 
+[Litasa](https://litasa.github.io/blog/2017/09/04/OpenGL-MultiDrawIndirect-with-Individual-Textures),
+
+这才是 Indirect 真正强大的地方，可以让跑车在高速上跑的地方而不是在楼梯里跑(上面非Multi-Draw的Indirect)的地方。
+
+> MDI opens the door to a totally new approach to generating draw commands which supports parallel command creation (either with multiple CPU cores or even on the GPU) and at the same time reduces the amount of time the CPU has to spend submitting draw calls to the driver. It also allows us to reuse draw commands from previous frames if nothing has changed.
+> -- [ktstephano](https://ktstephano.github.io/rendering/opengl/mdi#:~:text=MDI%20opens%20the%20door%20to%20a%20totally%20new%20approach%20to%20generating%20draw%20commands%20which%20supports%20parallel%20command%20creation)
+
+MDI 与其他老方法的主要区别在于，MDI不是手动提交每个绘制调用（实例或非实例、索引或非索引），而是将绘制调用打包到 GPU 缓冲区中，该缓冲区在绘制之前绑定到 GL_DRAW_INDIRECT_BUFFER 目标。
+这意味着我们不是连续提交多个绘制命令，而是一次提交当前绑定 GPU 缓冲区中的每个绘制调用。
+
+这就是并行绘制命令生成选项发挥作用的地方。由于在我们绑定并提交绘制命令缓冲区之前，OpenGL 实际上不会对它执行任何操作，因此多个线程可以在我们同步和绘制之前提前将数据写入缓冲区。
+渲染线程将始终提交绘制命令，但多个线程可以在此之前写入绘制命令缓冲区。
+
+另一件重要的事情是 GL_DRAW_INDIRECT_BUFFER 由 GPU 内存支持，可以像常规 SSBO 一样使用。这意味着您可以将其传递到计算着色器并让它直接操作绘制命令。 GPU 现在可以生成自己的工作！
+
+Summery:
+- Multiple threads or the GPU can write to a draw command buffer
+- The rendering thread synchronizes and submits the commands in the buffer with a single API call.
+
+#### APIs 
+
+当涉及到 MDI 时，我们将处理两个函数：
+```cpp
+void glMultiDrawArraysIndirect(
+    GLenum mode,
+    const void *indirect,
+    GLsizei drawcount,
+    GLsizei stride
+);
+
+void glMultiDrawElementsIndirect(
+    GLenum mode,
+    GLenum type,
+    const void *indirect,
+    GLsizei drawcount,
+    GLsizei stride
+);
+```
+它们之间的区别在于，第一个执行 non-indexed multi-draw 非索引多次绘制，而第二个执行 indexed multi-draw 索引多次绘制。
+
+**参数**
+- indirect (同上): 如果届时 GL_DRAW_INDIRECT_BUFFER 已被绑定，那么 indirect 将会被解释为一个偏移量 (in bytes?) 对于那块 GPU 内存 (GL_DRAW_INDIRECT_BUFFER VBO)。否则你可以传个CPU内存的结构体进去。(但不推荐 那就缺失MDI最关键的CS功能了)
+- drawcount: Number of draw commands in the buffer currently bound to GL_DRAW_INDIRECT_BUFFER.
+- stride: 一个绘制命令的结束与下一个绘制命令的开始之间的字节偏移量。如果为 0，则绘图命令缓冲区中的数据是紧密包装的。If greater than 0 then the structure contains extra data that the application plans to use but OpenGL needs to skip over.
+
+::: details "Equivalent"
+如果不考虑 ComputeShader 的话，glMultiDraw*Indirect 相当于:
+```cpp
+// A single call to glMultiDrawArraysIndirect is equivalent, assuming no errors are generated to:
+void glMultiDrawArraysIndirect(GLenum mode, const void *indirect, GLsizei drawcount, GLsizei stride) {
+    for (GLsizei n = 0; n < drawcount; n++) {
+        const DrawArraysIndirectCommand *cmd;
+        if (stride != 0) {
+            cmd = (const DrawArraysIndirectCommand*)((uintptr)indirect + n * stride);
+        } else  {
+            cmd = (const DrawArraysIndirectCommand*)indirect + n;
+        }
+
+        glDrawArraysInstancedBaseInstance(mode, cmd->first, cmd->count, cmd->instanceCount, cmd->baseInstance);
+    }
+}
+void glMultiDrawElementsIndirect(GLenum mode, GLenum type, const void *indirect, GLsizei drawcount, GLsizei stride) {
+    for (GLsizei n = 0; n < drawcount; n++) {
+        const DrawElementsIndirectCommand *cmd;
+        if (stride != 0) {
+            cmd = (const DrawElementsIndirectCommand  *)((uintptr)indirect + n * stride);
+        } else {
+            cmd = (const DrawElementsIndirectCommand  *)indirect + n;
+        }
+    
+        glDrawElementsInstancedBaseVertexBaseInstance(
+            mode,
+            cmd->count,
+            type,
+            cmd->firstIndex * size-of-type,
+            cmd->instanceCount,
+            cmd->baseVertex,
+            cmd->baseInstance);
+    }
+}
+```
+单次调用 glMultiDrawArraysIndirect "相当于"多次调用 glDrawArraysInstancedBaseInstance (但后者不能结合 ComputeShader
+:::
+
+对应的 Command 结构体：
+```cpp
+// Struct for MultiDrawArrays
+typedef  struct {
+    unsigned int  count;
+    unsigned int  instanceCount;
+    unsigned int  firstVertex;
+    unsigned int  baseInstance;
+    // Optional user-defined data goes here - if nothing, stride is 0
+} DrawArraysIndirectCommand;
+// sizeof(DrawArraysIndirectCommand) == 16
+
+// Struct for MultiDrawElements
+typedef  struct {
+    unsigned int  count;
+    unsigned int  instanceCount;
+    unsigned int  firstIndex;
+    int           baseVertex;
+    unsigned int  baseInstance;
+    // Optional user-defined data goes here - if nothing, stride is 0
+} DrawElementsIndirectCommand;
+// sizeof(DrawElementsIndirectCommand) == 20
+```
+成员:
+- count: For `DrawArraysIndirect` this is interpreted as the number of vertices. For `DrawElementsIndirectCommand` this is interpreted as the number of indices.
+- instanceCount: Number of instances where 0 effectively disables the draw command. Setting instances to 0 is useful if you have an initial list of draw commands and want to disable them by the CPU or GPU during a frustum culling step for example.
+- firstVertex: For `DrawArraysIndirect` this is an index (not byte) offset into a bound vertex array to start reading vertex data.
+- firstIndex: For `DrawArraysIndirect` this is an index (not byte) offset into a bound vertex array to start reading vertex data.
+- baseVertex: For `DrawElementsIndirectCommand` this is interpreted as an addition to whatever index is read from the element array buffer.
+- baseInstance: If using instanced vertex attributes, this allows you to offset where the instanced buffer data is read from. The formula for the final instanced vertex attrib offset is `floor(instance / divisor) + baseInstance`. If you are not using instanced vertex attributes then you can use this member for whatever you want, for example storing a material index that you will manually read from in the shader.
+
+以下是驱动程序如何设置 gl_VertexID 的一些伪代码:
+```cpp
+// When using DrawArraysIndirectCommand
+for each (DrawArraysIndirectCommand cmd : GL_DRAW_INDIRECT_BUFFER) {
+    for (uint i = 0; i < cmd.count; ++i) {
+        int gl_VertexID = cmd.firstVertex + i;
+    }
+}
+
+// When using DrawElementsIndirectCommand when element array buffer is
+// using unsigned ints
+unsigned int * indices = (unsigned int *)ELEMENT_ARRAY_BUFFER;
+for each (DrawElementsIndirectCommand cmd : GL_DRAW_INDIRECT_BUFFER) {
+    for (uint i = 0; i < cmd.count; ++i) {
+        int gl_VertexID = indices[cmd.firstIndex + i] + cmd.baseVertex;
+    }
+}
+```
+
+可用的内置输入变量:
+- gl_VertexID: Vertex with firstVertex offset if `DrawArraysIndirectCommand`, vertex index with first index and base vertex offset if `DrawArraysIndirectCommand`
+- gl_InstanceID: Current instance whenever instanceCount > 1, else 0
+- gl_DrawID: The current draw command index we are on inside of the GL_DRAW_INDIRECT_BUFFER - so if you submitted 30 draw commands in the buffer, this value will range from 0 to 29. Useful for a situation such as needing to access a different transform matrix depending on the current draw command number.  
+  当前的 draw command index (of GL_DRAW_INDIRECT_BUFFER) - 因此，如果您在缓冲区中提交了 30 个绘制命令，则该值的范围为 0 到 29。对于需要根据当前 draw command index 访问不同变换矩阵的情况很有用。
+- gl_BaseVertex: Base vertex of current draw command
+- gl_BaseInstance: Base instance of current draw command (can use this to pass in any integer data you want if not using instanced vertex attributes)
+
+#### FirstVertex, FirstIndex 有什么用?
+
+有了这些，我们就可以将多个 mesh vertices 和 vertex indices 组合到 draw commands 可以引用的更大 VBO 中。
+例如，假设我们有 3 个 Mesh，并且我们已将它们的数据合并到两个大 VBO 中（一个用于顶点，一个用于索引）：
+![](res/vertices_indices.png)
+(Image from [ktstephano](https://ktstephano.github.io/rendering/opengl/mdi#:~:text=What%20First%20Vertex/Index%20and%20Base%20Vertex%20Are%20Useful%20For))
+
+We see here that the meshes now sit in adjacent memory and we will need to specify offsets to access the data. If using DrawArraysIndirectCommand we will specify that with the firstVertex offset so that we can correctly access the vertex data for each mesh per draw call.
+
+请注意， index buffer 的元素都是从 0 到 3，但实际的 vertex buffer 是从 0 到 9，因为我们将所有 3 个 Mesh 的顶点放入其中。
+如果使用`DrawElementsIndirectCommand`我们可以使用`firstIndex`（在 index buffer 中开始读取当前绘制调用的位置）和baseVertex（在使用它访问顶点缓冲区中的顶点之前索引应该偏移的位置）的组合来指定偏移量。当前绘制调用）。
+`VertexID = EBO[i + firstIndex] + baseVertex`
+
+这三个 Mesh 的 Command 会是什么样的？:
+```cpp
+DrawElementsIndirectCommand mesh1Cmd = {
+    .count = 6,         // 6 indices total
+    .instanceCount = 1,
+    .firstIndex = 0,    // First in the index array
+    .baseVertex = 0,    // First in the vertex array
+    .baseInstance = 0
+};
+
+// For this command,
+// initialIndex = indices[.firstIndex] + .baseVertex
+//              = indices[6] + 3
+//              = 1 + 3 = 4
+DrawElementsIndirectCommand mesh2Cmd = {
+    .count = 6,         // 6 indices total
+    .instanceCount = 1,
+    .firstIndex = 6,    // Starts at location 6 in index array
+    .baseVertex = 3,    // Starts at location 3 in vertices array
+    .baseInstance = 0
+};
+
+// For this command,
+// initialIndex = indices[.firstIndex] + .baseVertex
+//              = indices[12] + 6
+//              = 0 + 6 = 6
+DrawElementsIndirectCommand mesh3Cmd = {
+    .count = 8,         // 8 indices total
+    .instanceCount = 1,
+    .firstIndex = 12,   // Starts at location 12 in index array
+    .baseVertex = 6,    // Starts at location 6 in vertices array
+    .baseInstance = 0
+};
+```
+
+#### 创建和使用 Draw Command Buffers
+
+这与创建 SSBO 的方式相同，只不过现在我们使用上面定义的两个结构之一。例如：
+
+```cpp
+std::vector<DrawElementsIndirectCommand> commands;
+// .. code that fills commands vector with DrawElementsIndirectCommand elements ..
+// (for example)
+commands.push_back(mesh1Cmd);
+commands.push_back(mesh2Cmd);
+commands.push_back(mesh3Cmd);
+
+GLuint drawCmdBuffer;
+glCreateBuffers(1, &drawCmdBuffer);
+
+glNamedBufferStorage(drawCmdBuffer, 
+                     sizeof(DrawElementsIndirectCommand) * commands.size(), 
+                     (const void *)commands.data(), 
+                     GL_DYNAMIC_STORAGE_BIT);
+```
+
+Binding and Drawing:
+```cpp
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
+glBindBuffer(GL_DRAW_INDIRECT_BUFFER, drawCmdBuffer);
+
+// This will submit all commands.size() draw commands in the currently
+// bound buffer
+glMultiDrawElementsIndirect(
+    GL_TRIANGLES, 
+    GL_UNSIGNED_INT, // Type of data in indicesBuffer
+    (const void *)0, // No offset into draw command buffer
+    commands.size(),
+    0                // No stride as data is tightly packed
+);
+
+glBindBuffer(GL_DRAW_INDIRECT_BUFFER, 0);
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+```
+
+### 在 GPU 上访问 Draw Command Buffers
+
+由于  draw command buffer 只是一个常规的 GPU buffer，因此它可以绑定到 GL_DRAW_INDIRECT_BUFFER 和 GL_SHADER_STORAGE_BUFFER 目标。
+
+```cpp
+// 3 matches (binding = 3) in compute shader below
+glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, drawCmdBuffer);
+glUniform1ui(
+    glGetUniformLocation(computeShader, "numDrawCommands"), commands.size()
+);
+```
+```glsl
+#version 460 core
+layout (local_size_x = 4, local_size_y = 4, local_size_z = 1) in;
+
+// Matches the C++ definition
+struct DrawElementsIndirectCommand {
+    uint  count;
+    uint  instanceCount;
+    uint  firstIndex;
+    int   baseVertex;
+    uint  baseInstance;
+};
+
+// Buffer for both read and write access
+layout (std430, binding = 3) buffer ssbo1 {
+    DrawElementsIndirectCommand drawCommands[];
+};
+
+uniform uint numDrawCommands;
+
+// Now the compute shader can read and write from the buffer however
+// way that it needs to
+```
+
+#### 多帧复用
+
+一个场景可能具有大量静态几何体，这些几何体一次性设置完毕，然后在许多帧中单独保留。在这种情况下，您可以选择专门为此静态几何图形生成绘制命令缓冲区，然后在许多帧的过程中重复使用它以节省性能。这意味着对于场景的静态部分，CPU 将仅绑定静态绘制命令缓冲区而不重新生成它，提交绘制调用，然后继续单独处理场景的动态部分。
+
+
+
+#### glMultiDraw<Arrays/Elements>Indirect**Count** 的 Count 变种
+
+甚至连官方文档 [KHR](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glMultiDrawArraysIndirectCount.xhtml) [docs.gl](https://docs.gl/gl4/glMultiDrawArraysIndirectCount)
+都不存在相关介绍，然而 API (glad4.6) 里存在 (wgpu也[存在](https://docs.rs/wgpu/latest/wgpu/struct.RenderPass.html#method.multi_draw_indexed_indirect_count))。那这究竟是什么？
+
+
+```cpp
+void glMultiDrawArraysIndirectCount(GLenum mode, const void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+void glMultiDrawElementsIndirectCount(GLenum mode, GLenum type, const void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+```
+
+多了一个 `GLsizei maxdrawcount` 参数 - 如果count小于maxcount 那么只会读count个，否则将会使用maxcount?
+
+
+#### 完整用例 - 结合 ComputeShader
+
+
+```cpp
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+
+// 顶点着色器源码
+const char* vertexShaderSource = R"(
+#version 330 core
+layout(location = 0) in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+}
+)";
+
+// 片段着色器源码
+const char* fragmentShaderSource = R"(
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+}
+)";
+
+// Compute Shader 源码，生成 Draw Indirect 命令
+const char* computeShaderSource = R"(
+#version 430 core
+struct DrawArraysIndirectCommand {
+    uint count;
+    uint instanceCount;
+    uint first;
+    uint baseInstance;
+};
+
+layout(std430, binding = 0) buffer CommandBuffer {
+    DrawArraysIndirectCommand commands[];
+};
+
+void main() {
+    uint index = gl_GlobalInvocationID.x;
+
+    // 假设有 10 个实例，每个实例绘制一个三角形
+    commands[index].count = 3;
+    commands[index].instanceCount = 1;
+    commands[index].first = 0;
+    commands[index].baseInstance = index;
+}
+)";
+
+struct DrawArraysIndirectCommand {
+    GLuint count;
+    GLuint instanceCount;
+    GLuint first;
+    GLuint baseInstance;
+};
+
+int main() {
+    // 初始化 GLFW
+    if (!glfwInit()) {
+        std::cerr << "Failed to initialize GLFW" << std::endl;
+        return -1;
+    }
+
+    // 创建窗口
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Draw Indirect Example", nullptr, nullptr);
+    if (!window) {
+        std::cerr << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwMakeContextCurrent(window);
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        std::cerr << "Failed to initialize GLEW" << std::endl;
+        return -1;
+    }
+
+    // 编译和链接着色器
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+    glCompileShader(vertexShader);
+
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+    glCompileShader(fragmentShader);
+
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // 定义三角形的顶点数据
+    GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f,
+       -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+    };
+
+    GLuint vao, vbo;
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    
+    // 在 CPU 上填充 DrawCommands Buffer (如果你用ComputeShader指定/填充，那这一步就可以不用)
+    // DrawArraysIndirectCommand drawCommands[10];
+    // for (int i = 0; i < 10; ++i) {
+    //     drawCommands[i] = {
+    //         .count = 3,
+    //         .instanceCount = 1,
+    //         .first = 0,
+    //         .baseInstance = 0
+    //     };
+    // }
+
+    // 创建 Draw Indirect Command 缓冲区
+    GLuint indirectBuffer;
+    glGenBuffers(1, &indirectBuffer);
+    glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
+    glBufferData(GL_DRAW_INDIRECT_BUFFER, 10 * sizeof(DrawArraysIndirectCommand), drawCommands, GL_DYNAMIC_DRAW);
+
+    // 编译和链接 Compute Shader
+    GLuint computeShader = glCreateShader(GL_COMPUTE_SHADER);
+    glShaderSource(computeShader, 1, &computeShaderSource, nullptr);
+    glCompileShader(computeShader);
+
+    GLuint computeProgram = glCreateProgram();
+    glAttachShader(computeProgram, computeShader);
+    glLinkProgram(computeProgram);
+    glDeleteShader(computeShader);
+
+    // 使用 Compute Shader 生成命令
+    glUseProgram(computeProgram);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, indirectBuffer);
+    glDispatchCompute(10, 1, 1);  // 生成 10 个命令
+    glMemoryBarrier(GL_COMMAND_BARRIER_BIT);  // 保证命令缓冲区可用
+
+    // 主渲染循环
+    while (!glfwWindowShouldClose(window)) {
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        glUseProgram(shaderProgram);
+
+        // 绘制使用 Draw Indirect
+        glBindVertexArray(vao);
+        glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirectBuffer);
+        glMultiDrawArraysIndirect(GL_TRIANGLES, nullptr, 10, 0);
+
+        // 交换缓冲区
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    // 清理
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &indirectBuffer);
+    glDeleteProgram(shaderProgram);
+    glDeleteProgram(computeProgram);
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+    return 0;
+}
+```
+如果你不使用 ComputeShader 也可以，只需移除相关 ComputeShader 代码/调用，并在CPU提交填充过的 GL_DRAW_INDIRECT_BUFFER, 就像上例代码(第121行)注释的那段一样。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -576,16 +1247,19 @@ BaseVertex 是一个整数偏移量，用于在绘制时指定顶点索引的起
 
 典型的使用场景：当你有多个对象的顶点数据存储在一个大的顶点缓冲区中，而索引缓冲区中存储的是相对于各个对象的本地索引时，BaseVertex 可以帮助你在绘制不同对象时偏移索引，从而正确引用顶点数据。
 
+For DrawElementsIndirectCommand this is interpreted as an addition to whatever index is read from the element array buffer.
 
+`VS_Vert = Vertices[EBO[VertexIndex + BaseVertex]]`
 
 ### BaseInstance
 
 baseinstance: Specifies the base instance for use in fetching instanced vertex attributes.
 
+this allows you to offset where the instanced buffer data is read from. The formula for the final instanced vertex attrib offset is `floor(instance / divisor) + baseInstance`
 
 #### 注意:
 
-gl_InstanceID: 即便 baseInstance 不为0，gl_InstanceID也仍然是从0开始的 每次+1，不会受 baseInstance 或 glVertexAttribDivisor 影响。
+gl_InstanceID: 即便 baseInstance 不为 0，gl_InstanceID也仍然是从0开始的 每次+1，不会受 baseInstance 或 glVertexAttribDivisor 影响。
 [see](https://docs.gl/gl4/glDrawElementsInstancedBaseInstance#:~:text=Note%20that%20baseinstance%20does%20not%20affect%20the%20shader%2Dvisible%20value%20of%20gl_InstanceID.)
 
 Instance Arrays: `(gl_InstanceID / divisor) + baseInstance` 是从 Instance Vertex Attribute 中取出的顶点的索引公式。
@@ -741,5 +1415,9 @@ glDeleteQueries(1, &query);
 
 ## Resources
 
+- https://ktstephano.github.io/rendering/opengl/mdi
+- https://learnopengl.com
+- https://www.khronos.org/opengl/wiki/Vertex_Shader/Defined_Inputs
+- https://registry.khronos.org/OpenGL-Refpages/gl4/html/glMultiDrawElementsIndirect.xhtml
 - https://www.bilibili.com/read/cv1823723/
 - https://github.com/GameEngineProgramming/OpenGLTutorialCode/blob/master/3dTriangle/src/main.cpp#L164
