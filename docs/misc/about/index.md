@@ -73,4 +73,11 @@ Misc
 [How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md), 
 
 
+<div style="height: 400px;"></div>
 
+
+### Lifetime Expereiences 
+
+关于我的成长经历，
+
+2024

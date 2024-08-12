@@ -126,21 +126,49 @@ export default defineConfig({
               { text: 'Indexed Compression', link: '/graphics/opengl4/indexed-vertices' },
             ]
           },
-          { text: 'Modern Graphics APIs', link: '/graphics/vulkan' },
+          { 
+            text: 'Modern Graphics APIs',
+            collapsed: true,
+            items: [
+              { text: 'Vulkan Review', link: '/graphics/modern/vulkan-quicklook' },
+              { text: 'DirectX 12 Review', link: '/graphics/modern/vulkan-quicklook' },
+              { text: 'Wgpu Review', link: '/graphics/modern/dx12-taskgraph' },
+
+              { text: 'Vulkan Dynamic Rendering', link: '/graphics/modern/vulkan-dynamic-rendering' },
+              { text: 'DirectX 12 WorkGraph', link: '/graphics/modern/dx12-workgraph' },
+            ]
+          },
           {
             text: 'GFX',
             collapsed: true,
             items: [
+              {
+                text: 'Atmosphere',
+                collapsed: true,
+                items: [
+                  { text: 'Rayleigh Scattering', link: '/graphics/gfx/atmosphere-rayleigh-scattering' },
+                  { text: 'Volumetric Fog & Light', link: '/graphics/gfx/volumetric-fog-light' },
+                  { text: 'Volumetric Cloud', link: '/graphics/gfx/volumetric-cloud' },
+                ]
+              },
+              { text: 'Rectilinear Texture Warping Shadow Mapping', link: '/graphics/gfx/rtwsm' },
               { text: 'The Acid Matrix of Inception', link: '/graphics/gfx/inception-acid' },
+            ]
+          },
+          {
+            text: 'Ray Tracing',
+            collapsed: true,
+            items: [
+              { text: 'Acceleration Struectures', link: '/graphics/ray-tracing/acceleration-struectures' },
+              { text: 'NVIDIA RTX RayTracing', link: '/graphics/modern/rtx-raytracing' },
             ]
           },
           {
             text: 'Misc',
             collapsed: true,
             items: [
-              { text: 'Atmosphere', link: '/graphics/gfx/atmosphere' },
-              { text: 'Anti Aliasing', link: '/graphics/anti-aliasing' },
-              { text: 'Work Graph', link: '/graphics/work-graph' },
+              { text: 'Anti Aliasing', link: '/graphics/misc/anti-aliasing' },
+              { text: 'Virtual Texture', link: '/graphics/modern/virtual-texture' },
             ]
           },
         ]
