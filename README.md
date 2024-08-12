@@ -2,8 +2,6 @@
 
 ## How to Build
 
-1. Download Node.js
+1. Install [VitePress](https://vitepress.dev/guide/getting-started) via `npm add vitepress -D` (Node.js is required)
 
-2. Install [VitePress](https://vitepress.dev/guide/getting-started) via `npm add -D vitepress`
-
-3. `npm run docs:dev` etc.
+2. Dev: `npm run docs:dev`, Build: `npm run docs:build`

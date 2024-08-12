@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Elytra",
@@ -14,6 +15,7 @@ export default defineConfig({
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-CSR36R1EGY');`],
+    ['script', {}, "console.log('Test Web Init')"]
     // ['script', { async: '', src: '//clustrmaps.com/map_v2.js?d=CjkjO_lbXjEDHs5kmXfnU4xsNf-CgStYgdHc7uoUTcg&cl=ffffff&w=a' }]
   ],
   cleanUrls: true,  // no .html suffix
@@ -82,7 +84,7 @@ export default defineConfig({
             ]
           },
           { 
-            text: 'Procedual WorldGen', 
+            text: 'Procedural WorldGen', 
             collapsed: true,
             items: [
               { text: 'Noises', link: '/voxel/worldgen/noises' },
@@ -111,7 +113,7 @@ export default defineConfig({
           { text: 'Overview', link: '/graphics/' },
           { 
             text: 'Postmodern OpenGL 4',
-            link: '/graphics/opengl4/',
+            // link: '/graphics/opengl4/',
             collapsed: true,
             items: [
               { text: 'All Draw Functions', link: '/graphics/opengl4/draw-functions' },
@@ -149,10 +151,7 @@ export default defineConfig({
           { text: 'Overview', link: '/physics/' },
           {
             text: 'Prelude',
-            collapsed: true,
-            items: [
-
-            ]
+            link: '/physics/prelude'
           },
           {
             text: 'Collection Detection',

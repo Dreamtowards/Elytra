@@ -25,6 +25,16 @@ CS的基本用法
 3. **Direct State Access. DSA**  
 性能对比，简要概述总结，和一些示例
 
+::: details Resoueces
+- [Khronos OpenGL4.6 Quick Reference Card](https://www.khronos.org/files/opengl46-quick-reference-card.pdf)
+- [Guide-to-Modern-OpenGL-Functions by fendevel](https://github.com/fendevel/Guide-to-Modern-OpenGL-Functions)
+- [GL Wrapper by Luna](https://github.com/Luna5ama/gl-wrapper/blob/main/shared/src/main/kotlin/dev/luna5ama/glwrapper/objects/FramebufferObject.kt)
+- https://github.com/PacktPublishing/3D-Graphics-Rendering-Cookbook
+- https://juandiegomontoya.github.io/modern_opengl.html
+- https://medium.com/@daniel.coady/compute-shaders-in-opengl-4-3-d1c741998c03
+- https://learnopengl.com/Guest-Articles/2022/Compute-Shaders/Introduction
+:::
+
 ### II. Modern Graphics Capriccios / APIs Thoughts
 
 1. **Vulkan QuickLook**  
