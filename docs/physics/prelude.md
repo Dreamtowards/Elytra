@@ -38,6 +38,11 @@ Name | Features                            | Used by | License
 
 - https://digitalrune.github.io/DigitalRune-Documentation/html/138fc8fe-c536-40e0-af6b-0fb7e8eb9623.htm
 
+
+### Integrator
+
+Semi-implicit Euler
+
 ## Physics Engine Lifecycle
 
 ### 0. 初始化 (Initialization)
