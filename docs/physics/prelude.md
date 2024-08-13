@@ -12,7 +12,7 @@ Name | Features                            | Used by | License
 [BulletPhysics](https://github.com/bulletphysics/bullet3)<sup>by Erwin Coumans</sup> | 性能: 没有Jolt或PhysX快<br>老牌 机器人拟真 | GTAV, Maya | MIT
 [Avian (BevyXPBD)](https://github.com/Jondolf/avian)<sup>by Joona Aalto</sup> | ECS | Bevy | MIT
 [Box2d](https://box2d.org/documentation/hello.html)<sup>by Erin Catto</sup> | Seqential Impulse 求解器 | Angry Birds, Limbo, Crayon Physics Deluxe | MIT
-<!-- [Havok](https://en.wikipedia.org/wiki/Havok_(software)) | | |  -->
+[Havok](https://en.wikipedia.org/wiki/Havok_(software)) | | The Elder Scrolls V: SkyrimAssassin’s Creed| 
 
 
 ## Physics Engine Features: 
@@ -31,6 +31,15 @@ Name | Features                            | Used by | License
 
 
 ### Continuous vs Discrete (CCD vs DCD)
+
+#### Continuous Collision Detection
+
+目标: 连续碰撞检测的目标是确保在物体运动过程中，即使是在两个离散时间步之间，也能准确检测到所有可能的碰撞，防止物体穿透其他物体。
+
+应用场景: 适用于高速移动的物体，例如子弹、快速旋转的物体、车辆等，特别是在物体之间可能存在大相对速度的情况下。
+
+#### Time of Impact, TOI
+
 
 #### CCD - 
 

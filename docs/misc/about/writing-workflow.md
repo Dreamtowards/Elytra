@@ -39,6 +39,8 @@
 
 ## 我如何搭建这个网站的?
 
+### 0. VitePress
+
 首先，我使用了 VitePress
 
 ```bash
@@ -46,29 +48,16 @@ npm add -D vitepress
 ```
 (npm需要安装node.js)
 
-### 去除 .html 后缀
+### 1. 去除 .html 后缀
 
 这个年代了，.html后缀对SEO估计也没啥帮助吧
 
 #### 1. docs/.vitepress/config.ts 启用 `cleanUrls: true`
-```ts{18}
-import { defineConfig } from 'vitepress'
-
-// https://vitepress.dev/reference/site-config
+```ts{5}
+// .vitepress/config.ts
 export default defineConfig({
     title: "Elytra",
-    titleTemplate: ':title - Elytra',
-    description: "Elytra",
-    lang: 'en-US',
-    head: [
-        ['link', {rel: 'icon', href: '/assets/logo-bl.png'}],
-        ['script', {async: '', src: 'https://www.googletagmanager.com/gtag/js?id=TAG_ID'}],
-        ['script', {},
-            `window.dataLayer = window.dataLayer || [];
-             function gtag(){dataLayer.push(arguments);}
-             gtag('js', new Date());
-             gtag('config', 'TAG_ID');`]
-    ],
+    ...
     cleanUrls: true,  // no .html suffix
     metaChunk: true,  // more Cache?
 })
@@ -95,7 +84,7 @@ server {
 }
 ```
 
-### Layout Switch 插件: 
+### 2. Layout Switch 插件: 
 
 右上角那个 Layout Switch 和 Spotlight 的功能，我非常喜欢。
 
@@ -173,3 +162,27 @@ export default Theme
    margin-right: 0;
 }
 ```
+
+
+
+### 3. Math Equations
+
+https://vitepress.dev/guide/markdown#math-equations
+
+``` 
+npm add -D markdown-it-mathjax3
+
+// .vitepress/config.ts
+export default {
+  markdown: {
+    math: true
+  }
+}
+```
+
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
+### 4. Analyze Integration
+
+https://aptabase.com/

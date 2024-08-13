@@ -133,6 +133,7 @@ export default defineConfig({
               { text: 'Vulkan Review', link: '/graphics/modern/vulkan-quicklook' },
               { text: 'DirectX 12 Review', link: '/graphics/modern/vulkan-quicklook' },
               { text: 'Wgpu Review', link: '/graphics/modern/dx12-taskgraph' },
+              { text: 'Comparison', link: '/graphics/modern/comparison-graphics-apis' },
 
               { text: 'Vulkan Dynamic Rendering', link: '/graphics/modern/vulkan-dynamic-rendering' },
               { text: 'DirectX 12 WorkGraph', link: '/graphics/modern/dx12-workgraph' },
@@ -168,7 +169,10 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Anti Aliasing', link: '/graphics/misc/anti-aliasing' },
-              { text: 'Virtual Texture', link: '/graphics/modern/virtual-texture' },
+              { text: 'Texture Filtering', link: '/graphics/misc/texture-filtering' },
+              { text: 'GPU Debugging', link: '/graphics/misc/gpu-debugging' },
+              { text: 'Virtual Texture', link: '/graphics/misc/virtual-texture' },
+              { text: 'Render Graph', link: '/graphics/misc/render-graph' },
             ]
           },
         ]
@@ -195,13 +199,15 @@ export default defineConfig({
               },
               { text: 'GJK & EPA', link: '/physics/collision-detection/gjk-epa' },
               { text: 'Primitives', link: '/physics/collision-detection/gjk-epa' },
+              { text: 'Continuous CCD', link: '/physics/continuous-collision-detection' },
             ]
           },
           {
             text: 'Constraint Solver',
             collapsed: true,
             items: [
-              { text: 'Sequential Impulse Solver', link: '/physics/constraint-solver' },
+              { text: 'Sequential Impulse Solver', link: '/physics/constraint-solver/sequential-impulse-solver' },
+              { text: 'Jacobian Matrix', link: '/physics/constraint-solver/jacobian-matrix' },
             ]
           },
           { text: 'Ragdoll & IK', link: '/physics/ragdoll' },
@@ -264,7 +270,8 @@ export default defineConfig({
     }
   },
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
+    math: true,
   },
 
   // https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-enhanced-readabilities/
