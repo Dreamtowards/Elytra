@@ -8,11 +8,11 @@
 Name | Features                            | Used by | License 
 --- |-------------------------------------| --- | --- 
 [PhysX](https://github.com/NVIDIA-Omniverse/PhysX)<sup>by NVIDIA</sup> | 性能: GPU 加速; 多线程加速; <br>功能: 流体 布料 粒子 | Unity, Unreal, Godot | 开源 BSD3<br>免费使用
-[JoltPhysics](https://github.com/jrouwe/JoltPhysics)<sup>by Jorrit Rouwe</sup> | 性能: 激进多线程加速<br>新秀 | Horizon Forbidden West. Sony IE. | MIT
-[BulletPhysics](https://github.com/bulletphysics/bullet3)<sup>by Erwin Coumans</sup> | 性能: 没有Jolt或PhysX快<br>老牌 机器人拟真 | GTAV, Maya | MIT
+[JoltPhysics](https://github.com/jrouwe/JoltPhysics)<sup>by Jorrit Rouwe</sup> | 性能: 激进多线程加速<br>新秀 | [Horizon Forbidden West](https://en.wikipedia.org/wiki/Horizon_Forbidden_West).<sup>Sony IE.</sup> [Hazel](https://hazelengine.com/) | MIT
+[BulletPhysics](https://github.com/bulletphysics/bullet3)<sup>by Erwin Coumans</sup> | 性能: 没有Jolt或PhysX快<br>老牌 机器人拟真 | GTA-V, Maya, [ETS-II](https://en.wikipedia.org/wiki/Euro_Truck_Simulator_2) | MIT
 [Avian (BevyXPBD)](https://github.com/Jondolf/avian)<sup>by Joona Aalto</sup> | ECS | Bevy | MIT
 [Box2d](https://box2d.org/documentation/hello.html)<sup>by Erin Catto</sup> | Seqential Impulse 求解器 | Angry Birds, Limbo, Crayon Physics Deluxe | MIT
-[Havok](https://en.wikipedia.org/wiki/Havok_(software)) | | The Elder Scrolls V: SkyrimAssassin’s Creed| 
+[Havok](https://en.wikipedia.org/wiki/Havok_(software)) | | The Elder Scrolls V: Skyrim, Assassin’s Creed| 
 
 
 ## Physics Engine Features: 

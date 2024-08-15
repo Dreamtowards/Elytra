@@ -89,6 +89,8 @@ export default defineConfig({
             items: [
               { text: 'Noises', link: '/voxel/worldgen/noises' },
               { text: 'Biomes', link: '/voxel/worldgen/biomes' },
+              { text: 'Wave Function Collapse', link: '/voxel/worldgen/wfc' },
+              { text: 'L-system', link: '/voxel/worldgen/l-system' },
             ]
           },
           { 
@@ -96,12 +98,7 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Networking', link: '/voxel/render/lod' },
-              { text: 'Teardown Study', link: '/voxel/render/lod' },
-              { text: 'Douglas\'s Voxel Study', link: '/voxel/render/culling-chunks' },
-              { text: 'Gore\'s Voxel Study', link: '/voxel/render/culling-chunks' },
-              { text: 'Minecraft Performance Mods Analysis', link: '/voxel/misc/minecraft-perf' },
               { text: 'Massive Terrain Rendering', link: '/voxel/render/lod' },
-              { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
               
             ]
           },
@@ -231,17 +228,55 @@ export default defineConfig({
             link: '/misc/about/',
             collapsed: true,
             items: [
+              { text: 'Legacy Projects', link: '/misc/legacy-projects' },
               { text: 'Time Management', link: '/misc/about/time-management' },
-              { text: 'Autonomous Learning', link: '/misc/about/autonomous-learning' },
+              { text: 'Learning Method', link: '/misc/about/autonomous-learning' },
               { text: 'Writing Workflow', link: '/misc/about/writing-workflow' },
             ]
           },
-          { text: 'Legacy Projects', link: '/misc/legacy-projects' },
           { 
-            text: 'Study', 
+            text: 'Teardown', 
             collapsed: true,
             items: [
-              { text: 'Flood Fill', link: '/misc/about' },
+              { text: 'Teardown', link: '/misc/teardown/tuxedo-teardown' },
+              { text: 'Douglas\'s Voxel', link: '/misc/teardown/douglas-voxel' },
+              { text: 'Gore\'s Voxel', link: '/misc/teardown/gore-voxel' },
+              { text: 'Minecraft Perf Mods', link: '/misc/teardown/minecraft-perf' },
+            ]
+          },
+          { 
+            text: 'Algorithms', 
+            collapsed: true,
+            items: [
+              { 
+                text: 'Metaheuristic', 
+                collapsed: true,
+                items: [
+                  { text: 'Path Finding: A*, JPS', link: '/misc/algorithms/pathfinding' },
+                  { text: 'Hill Climbing', link: '/misc/algorithms/hill-climbing' },
+                  { text: 'Simulated Annealing', link: '/misc/algorithms/simulated-annealing' },
+                  { text: 'Tabu Search', link: '/misc/algorithms/tabu-search' },
+                  { text: 'Genetic Algorithms', link: '/misc/algorithms/genetic-algorithms' },
+                ]
+              },    
+              { text: 'Flood Fill', link: '/misc/algorithms/flood-fill' },
+              { text: 'DFS & BFS', link: '/misc/algorithms/dfs-bfs' },
+              { text: 'Hash Map', link: '/misc/algorithms/hashmap' },
+              { text: 'Basic Data Struectures', link: '/misc/algorithms/basic-data-structures' },
+            ]
+          },
+          { 
+            text: 'Gameplay Design', 
+            collapsed: true,
+            items: [
+              { text: 'Inventory', link: '/misc/gameplay/inventory' },
+            ]
+          },
+          { 
+            text: 'Skills', 
+            collapsed: true,
+            items: [
+              { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
             ]
           },
         ]
