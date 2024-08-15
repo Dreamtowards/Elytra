@@ -51,6 +51,7 @@ export default defineConfig({
               { text: 'Runtime Store', link: '/voxel/storage/runtime-store' },
               { text: 'Persistent Store', link: '/voxel/storage/persistent-store' },
               { text: 'Extendable Id System', link: '/voxel/storage/id-system' },
+              { text: 'Unaligned Voxel Systems', link: '/voxel/storage/unaligned-voxel-systems' },
             ]
           },
           { 
@@ -276,7 +277,15 @@ export default defineConfig({
             text: 'Skills', 
             collapsed: true,
             items: [
-              { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
+              { text: 'Profiling GPU & CPU', link: '/misc/skill/profiling-gpu' },
+              { text: 'Cloudflare CDN & Email', link: '/misc/skill/cloudflare-cdn-email' },
+            ]
+          },
+          { 
+            text: 'Life', 
+            collapsed: true,
+            items: [
+              { text: 'Profiling GPU & CPU', link: '/misc/skill/profiling-gpu' },
             ]
           },
         ]
