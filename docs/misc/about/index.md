@@ -58,10 +58,12 @@ Dev
 [0fps](https://0fps.net/),
 [Yan Chernikov](https://thecherno.com/),
 [Graham Edgecombe](https://minecraft-ids.grahamedgecombe.com/),
+[Vercidium](https://vercidium.com/),
 <br>
 [Rising World](https://trello.com/b/t5Leypcj/rising-world-development),
 [Up Void](https://upvoid.com/),
 
+[Thaumstrial](https://thaumstrial.com/)[(.org)](https://thaumstrial.org/),
 [Luna](https://github.com/Luna5ama)[(.dev)](https://about.luna5ama.dev/), 
 [szszss](http://blog.hakugyokurou.net/?p=785),
 [Saurlax](https://saurlax.com/),

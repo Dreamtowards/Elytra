@@ -98,4 +98,7 @@ https://alain.xyz/blog/advances-in-material-models#lambertian
 - https://alain.xyz/blog/raw-vulkan
 - https://alain.xyz/blog/ray-tracing-filtering
 - https://alain.xyz/blog/noise-generation-survey
+
+
+- Bokeh: https://www.scratchapixel.com/lessons/digital-imaging/simple-image-manipulations/bookeh-effect.html
 :::

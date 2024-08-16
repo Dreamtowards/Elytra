@@ -115,13 +115,13 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'All Draw Functions', link: '/graphics/opengl4/draw-functions' },
-              { text: 'Direct State Access. DSA', link: '/graphics/opengl4/dsa' },
               { text: 'SSBOs', link: '/graphics/opengl4/ssbo' },
-              { text: 'Vertex Pulling', link: '/graphics/opengl4/vertex-pulling' },
               { text: 'Compute Shader', link: '/graphics/opengl4/compute-shader' },
-              { text: 'MultiDraw Indirect. MDI', link: '/graphics/opengl4/multidraw-indirect' },
+              { text: 'Vertex Pulling', link: '/graphics/opengl4/vertex-pulling' },
               { text: 'Bindless Texture', link: '/graphics/opengl4/indexed-vertices' },
-              { text: 'Indexed Compression', link: '/graphics/opengl4/indexed-vertices' },
+              { text: 'MultiDraw Indirect. MDI', link: '/graphics/opengl4/multidraw-indirect' },
+              { text: 'Tessellation Shader', link: '/graphics/opengl4/tessellation' },
+              { text: 'Direct State Access. DSA', link: '/graphics/opengl4/dsa' },
             ]
           },
           { 
@@ -148,10 +148,13 @@ export default defineConfig({
                   { text: 'Rayleigh Scattering', link: '/graphics/gfx/atmosphere-rayleigh-scattering' },
                   { text: 'Volumetric Fog & Light', link: '/graphics/gfx/volumetric-fog-light' },
                   { text: 'Volumetric Cloud', link: '/graphics/gfx/volumetric-cloud' },
+                  { text: 'IBL', link: '/graphics/gfx/image-based-lighting' },
                 ]
               },
               { text: 'Rectilinear Texture Warping Shadow Mapping', link: '/graphics/gfx/rtwsm' },
               { text: 'The Acid Matrix of Inception', link: '/graphics/gfx/inception-acid' },
+              { text: 'Motion Blur', link: '/graphics/gfx/inception-acid' },
+              { text: 'Depth of Field', link: '/graphics/gfx/inception-acid' },
             ]
           },
           {
@@ -171,6 +174,7 @@ export default defineConfig({
               { text: 'GPU Debugging', link: '/graphics/misc/gpu-debugging' },
               { text: 'Virtual Texture', link: '/graphics/misc/virtual-texture' },
               { text: 'Render Graph', link: '/graphics/misc/render-graph' },
+              { text: 'Vertices Compression', link: '/graphics/vertices-compression' },
             ]
           },
         ]
@@ -288,6 +292,17 @@ export default defineConfig({
               { text: 'Profiling GPU & CPU', link: '/misc/skill/profiling-gpu' },
             ]
           },
+          {
+            text: 'Teardown',
+            collapsed: true,
+            items: [
+              { text: 'Teardown', link: '/voxel/render/lod' },
+              { text: 'Douglas\'s Voxel', link: '/voxel/render/culling-chunks' },
+              { text: 'Gore\'s Voxel', link: '/voxel/render/culling-chunks' },
+              { text: 'Minecraft Perf Mods', link: '/voxel/misc/minecraft-perf' },
+            ]
+          },
+          { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
         ]
       }
     ],
