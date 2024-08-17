@@ -76,5 +76,7 @@
 
 ## Resources
 
-- https://docs.unity3d.com/2023.1/Documentation/Manual/ContinuousCollisionDetection.html
-- https://digitalrune.github.io/DigitalRune-Documentation/html/138fc8fe-c536-40e0-af6b-0fb7e8eb9623.htm#Solutions
+- [ErinCatto Box2d: CCD GDC2013](https://box2d.org/files/ErinCatto_ContinuousCollision_GDC2013.pdf)
+- [ACRL: CCD](https://zhuanlan.zhihu.com/p/380532960)
+- [Unity Docs: CCD api](https://docs.unity3d.com/2023.1/Documentation/Manual/ContinuousCollisionDetection.html)
+- [DigitalRune Docs: CCD](https://digitalrune.github.io/DigitalRune-Documentation/html/138fc8fe-c536-40e0-af6b-0fb7e8eb9623.htm#Solutions)

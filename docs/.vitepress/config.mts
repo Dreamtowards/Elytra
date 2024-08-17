@@ -184,24 +184,23 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/physics/' },
           {
-            text: 'Prelude',
-            link: '/physics/prelude'
-          },
-          {
             text: 'Collection Detection',
             collapsed: true,
             items: [
+              // { text: '<b><small>Broadphase:</small></b>' },
               {
                 text: 'Broadphase',
                 collapsed: true,
                 items: [
-                  { text: 'DBVT', link: '/physics/collision-detection/broadphase/dbvt' },
-                  { text: 'Sweep and Prune', link: '/physics/collision-detection/broadphase/sweep-and-prune' },
+                  { text: 'BVH & DBVT', link: '/physics/collision-detection/dbvt' },
+                  { text: 'Sweep and Prune', link: '/physics/collision-detection/sweep-and-prune' },
                 ]
               },
+              // { text: '<b><small>Narrowphase:</small></b>' },
               { text: 'GJK & EPA', link: '/physics/collision-detection/gjk-epa' },
-              { text: 'Primitives', link: '/physics/collision-detection/gjk-epa' },
-              { text: 'Continuous CCD', link: '/physics/continuous-collision-detection' },
+              // { text: 'Primitives', link: '/physics/collision-detection/gjk-epa' },
+              // { text: '<b><small>Misc:</small></b>' },
+              { text: 'Continuous CCD', link: '/physics/collision-detection/ccd' },
             ]
           },
           {
@@ -213,6 +212,7 @@ export default defineConfig({
             ]
           },
           { text: 'Ragdoll & IK', link: '/physics/ragdoll' },
+          { text: 'Integrator', link: '/physics/integrator' },
         ]
       },
       {
@@ -267,7 +267,7 @@ export default defineConfig({
               { text: 'Flood Fill', link: '/misc/algorithms/flood-fill' },
               { text: 'DFS & BFS', link: '/misc/algorithms/dfs-bfs' },
               { text: 'Hash Map', link: '/misc/algorithms/hashmap' },
-              { text: 'Basic Data Struectures', link: '/misc/algorithms/basic-data-structures' },
+              { text: 'Basic Data Structures', link: '/misc/algorithms/basic-data-structures' },
             ]
           },
           { 
@@ -288,21 +288,11 @@ export default defineConfig({
           { 
             text: 'Life', 
             collapsed: true,
+            link: '/misc/life/',
             items: [
-              { text: 'Profiling GPU & CPU', link: '/misc/skill/profiling-gpu' },
+              { text: 'Life', link: '/misc/life/' },
             ]
           },
-          {
-            text: 'Teardown',
-            collapsed: true,
-            items: [
-              { text: 'Teardown', link: '/voxel/render/lod' },
-              { text: 'Douglas\'s Voxel', link: '/voxel/render/culling-chunks' },
-              { text: 'Gore\'s Voxel', link: '/voxel/render/culling-chunks' },
-              { text: 'Minecraft Perf Mods', link: '/voxel/misc/minecraft-perf' },
-            ]
-          },
-          { text: 'Profiling GPU & CPU', link: '/voxel/misc/profiling-gpu' },
         ]
       }
     ],
