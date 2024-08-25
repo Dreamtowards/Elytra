@@ -40,17 +40,57 @@ features:
 
 <br>
 
-<!-- 
+
 ### Voxel
 
-1. Storage
-2. Rendering
+***I. Storage:***     
+    1. Runtime Store,   
+    2. Persistent Store,   
+    3. Extendable Id System,   
+    4. Unaligned Voxel Systems  
+
+***II. Rendering:***   
+    1. LoD,   
+    2. Culling,   
+    3. RayMarching,   
+    4. Isosurface,   
+    5. Voxel GI.  
+
+***3. Simulating:***   
+   Flooding,  
+   Lighting,  
+   Connectivity,  
+   Fire Spread,  
+   Explosion,  
+   Voxel Collision Detection,  
+   PhysX Integration.  
+
+***IV. Procedural WorldGen:***  
+    1. Noises,   
+    2. Biomes,   
+    3. WFC,   
+    4. L-system.    
+
+***Misc:*** 
+    1. Teardown of (Minecraft Perf / WorldGen, Teardown, Gore, Dauglas, xima)  
 
 ### Graphics
 
+***I. Postmodern OpenGL 4:***  
+    1. All Draw Functions  
+    2. SSBO  
+    3. Compute Shader,  
+    4. Programmable Vertex Pulling,   
+    5. Bindless Texture,   
+    6. MultiDraw Indirect MDI,   
+    7. Tessellation Shader,   
+    8. DSA.   
+***II. Modern Graphics APIs:***  
+
+
 ### Physics
 
-### Programming Language -->
+### Programming Language
 
 
 <!-- # Projects -->

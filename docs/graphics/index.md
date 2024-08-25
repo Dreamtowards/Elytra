@@ -42,7 +42,7 @@ MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
 - https://alain.xyz/blog/realtime-renderer-architectures
 :::
 
-### II. Modern Graphics Capriccios / APIs Thoughts
+### II. Modern Graphics APIs
 
 1. **Vulkan Review**  
 快速过一遍Vulkan 1000行的Hello Triangle
@@ -55,12 +55,16 @@ MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
 6. **Comparison**
 ---
 
-2. **Vulkan 1.3 Dynamic Rendering**  
+1. **Vulkan 1.3 Dynamic Rendering**  
 使用DynamicRendering特性化繁为简，去除针对Tiling GPU的依赖，去除RenderPass Framebuffer
-3. **DirectX 12 Task Graph**  
+2. **DirectX 12 Task Graph**  
 DX12 TaskGraph 分析。
-5. **Virtual Textures**  
-用途与功能性能对比。
+
+---
+
+1. **Virtual Textures**  
+2. **Render Graph**
+2. **Virtual Geometry**<sup>(Nanite/Meshlet)</sup>
 
 ### III. GFX
 

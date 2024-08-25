@@ -25,6 +25,7 @@ TAA算法的实现可以结合其他技术和算法，如深度信息、颜色�
 ## Resources
 
 - https://www.bilibili.com/video/BV13z4y1K7CC/  https://phu004.github.io/aa_tutorial/
+- http://filmicworlds.com/blog/visibility-taa-and-upsampling-with-subsample-history/
 - https://blog.csdn.net/u013467442/article/details/40628121
 - https://xyuxf.com/archives/2246
 - https://zhuanlan.zhihu.com/p/639277565
