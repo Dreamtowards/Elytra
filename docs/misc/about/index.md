@@ -63,8 +63,9 @@ Dev
 [Rising World](https://trello.com/b/t5Leypcj/rising-world-development),
 [Up Void](https://upvoid.com/),
 
-[Thaumstrial](https://thaumstrial.com/)[(.org)](https://thaumstrial.org/),
-[Luna](https://github.com/Luna5ama)[(.dev)](https://about.luna5ama.dev/), 
+[Luna](https://github.com/Luna5ama)<small>[(.dev)](https://about.luna5ama.dev/)</small><sup>Graphics</sup>, 
+[ACRL](https://www.zhihu.com/people/acrl)<sup>Physics</sup>, 
+[Thaumstrial](https://thaumstrial.com/), 
 [szszss](http://blog.hakugyokurou.net/?p=785),
 [Saurlax](https://saurlax.com/),
 [Clansty](https://clansty.com/),

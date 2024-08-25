@@ -6,6 +6,7 @@ hero:
   name: 
   text: "Elytra <sup style='font-size: 16px;'>Dreamtowards's DB</sup>" #"<img src='/assets/elytra-corp.png' style='height: 64px; '>"
   tagline: Concentrate, Passionate, Meditation # Meditation Transcendent # <small>we living in a twilight world, there are no friends at dusk huh</small> # Ignite Passionate, Elevate Soaring<small> · 点燃热情 助力翱翔</small>
+  
   actions:
     - theme: brand
       text: Voxel
@@ -38,6 +39,19 @@ features:
 ---
 
 <br>
+
+<!-- 
+### Voxel
+
+1. Storage
+2. Rendering
+
+### Graphics
+
+### Physics
+
+### Programming Language -->
+
 
 <!-- # Projects -->
 

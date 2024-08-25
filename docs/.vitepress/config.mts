@@ -76,7 +76,7 @@ export default defineConfig({
             text: 'Simulating', 
             collapsed: true,
             items: [
-              { text: 'Liquid Flooding', link: '/voxel/sim/liquid' },
+              { text: 'Flooding', link: '/voxel/sim/flooding' },
               { text: 'Lighting', link: '/voxel/sim/lighting' },
               { text: 'Connectivity', link: '/voxel/sim/connectivity' },
               { text: 'Fire Spread', link: '/voxel/sim/fire-spread' },
@@ -115,10 +115,10 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'All Draw Functions', link: '/graphics/opengl4/draw-functions' },
-              { text: 'SSBOs', link: '/graphics/opengl4/ssbo' },
+              { text: 'SSBO', link: '/graphics/opengl4/ssbo' },
               { text: 'Compute Shader', link: '/graphics/opengl4/compute-shader' },
-              { text: 'Vertex Pulling', link: '/graphics/opengl4/vertex-pulling' },
-              { text: 'Bindless Texture', link: '/graphics/opengl4/indexed-vertices' },
+              { text: 'Vertex Pulling', link: '/graphics/opengl4/programmable-vertex-pulling' },
+              { text: 'Bindless Texture', link: '/graphics/opengl4/bindless-texture' },
               { text: 'MultiDraw Indirect. MDI', link: '/graphics/opengl4/multidraw-indirect' },
               { text: 'Tessellation Shader', link: '/graphics/opengl4/tessellation' },
               { text: 'Direct State Access. DSA', link: '/graphics/opengl4/dsa' },
@@ -128,13 +128,26 @@ export default defineConfig({
             text: 'Modern Graphics APIs',
             collapsed: true,
             items: [
-              { text: 'Vulkan Review', link: '/graphics/modern/vulkan-quicklook' },
-              { text: 'DirectX 12 Review', link: '/graphics/modern/vulkan-quicklook' },
-              { text: 'Wgpu Review', link: '/graphics/modern/dx12-taskgraph' },
+              // { text: '<b><small>Review:</small></b>' },
+              { text: 'Vulkan Review', link: '/graphics/modern/vulkan-review' },
+              { text: 'OpenGL4 Review', link: '/graphics/modern/opengl4-review' },
+              { text: 'Wgpu Review', link: '/graphics/modern/wgpu-review' },
+              { text: 'DirectX 12 Review', link: '/graphics/modern/dx12-review' },
+              { text: 'DirectX 9 Review', link: '/graphics/modern/dx9-review' },
               { text: 'Comparison', link: '/graphics/modern/comparison-graphics-apis' },
-
+              { text: '<b><small>Features:</small></b>' },
               { text: 'Vulkan Dynamic Rendering', link: '/graphics/modern/vulkan-dynamic-rendering' },
               { text: 'DirectX 12 WorkGraph', link: '/graphics/modern/dx12-workgraph' },
+            ]
+          },
+          {
+            text: 'Conceptions',
+            collapsed: true,
+            items: [
+              { text: 'Virtual Texture', link: '/graphics/misc/virtual-texture' },
+              { text: 'Render Graph', link: '/graphics/misc/render-graph' },
+              { text: 'Virtual Geometry<sup>Nanite</sup>', link: '/graphics/misc/render-graph' },
+              { text: 'Lumen Software RayTracing', link: '/graphics/misc/render-graph' },
             ]
           },
           {
@@ -148,13 +161,13 @@ export default defineConfig({
                   { text: 'Rayleigh Scattering', link: '/graphics/gfx/atmosphere-rayleigh-scattering' },
                   { text: 'Volumetric Fog & Light', link: '/graphics/gfx/volumetric-fog-light' },
                   { text: 'Volumetric Cloud', link: '/graphics/gfx/volumetric-cloud' },
-                  { text: 'IBL', link: '/graphics/gfx/image-based-lighting' },
+                  { text: 'IBL<sup>Image-based Lighting</sup>', link: '/graphics/gfx/image-based-lighting' },
                 ]
               },
-              { text: 'Rectilinear Texture Warping Shadow Mapping', link: '/graphics/gfx/rtwsm' },
-              { text: 'The Acid Matrix of Inception', link: '/graphics/gfx/inception-acid' },
-              { text: 'Motion Blur', link: '/graphics/gfx/inception-acid' },
-              { text: 'Depth of Field', link: '/graphics/gfx/inception-acid' },
+              { text: 'RTWSM.<sup>Rectilinear Texture Warping Shadow Mapping</sup>', link: '/graphics/gfx/rtwsm' },
+              { text: 'Motion Blur', link: '/graphics/gfx/motion-blur' },
+              { text: 'Depth of Field', link: '/graphics/gfx/depth-of-field' },
+              { text: 'Inception Deform Matrix', link: '/graphics/gfx/inception-deform' },
             ]
           },
           {
@@ -172,8 +185,6 @@ export default defineConfig({
               { text: 'Anti Aliasing', link: '/graphics/misc/anti-aliasing' },
               { text: 'Texture Filtering', link: '/graphics/misc/texture-filtering' },
               { text: 'GPU Debugging', link: '/graphics/misc/gpu-debugging' },
-              { text: 'Virtual Texture', link: '/graphics/misc/virtual-texture' },
-              { text: 'Render Graph', link: '/graphics/misc/render-graph' },
               { text: 'Vertices Compression', link: '/graphics/vertices-compression' },
             ]
           },
@@ -184,7 +195,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/physics/' },
           {
-            text: 'Collection Detection',
+            text: 'Collision Detection',
             collapsed: true,
             items: [
               // { text: '<b><small>Broadphase:</small></b>' },
@@ -237,6 +248,15 @@ export default defineConfig({
               { text: 'Time Management', link: '/misc/about/time-management' },
               { text: 'Learning Method', link: '/misc/about/autonomous-learning' },
               { text: 'Writing Workflow', link: '/misc/about/writing-workflow' },
+              { 
+                text: 'Life', 
+                collapsed: true,
+                link: '/misc/life/',
+                items: [
+                  { text: 'Life', link: '/misc/life/' },
+                ]
+              },
+              { text: 'Ethertia Specs', link: '/voxel/misc/ethertia-spec' },
             ]
           },
           { 
@@ -268,17 +288,18 @@ export default defineConfig({
               { text: 'DFS & BFS', link: '/misc/algorithms/dfs-bfs' },
               { text: 'Hash Map', link: '/misc/algorithms/hashmap' },
               { text: 'Basic Data Structures', link: '/misc/algorithms/basic-data-structures' },
+              { 
+                text: 'Patterns', 
+                collapsed: true,
+                items: [
+                  { text: 'State Machine', link: '/misc/algorithms/patterns/state-machine' },
+                  { text: 'Decision Tree', link: '/misc/algorithms/patterns/state-machine' },
+                ]
+              },  
             ]
           },
           { 
-            text: 'Gameplay Design', 
-            collapsed: true,
-            items: [
-              { text: 'Inventory', link: '/misc/gameplay/inventory' },
-            ]
-          },
-          { 
-            text: 'Skills', 
+            text: 'Utility', 
             collapsed: true,
             items: [
               { text: 'Profiling GPU & CPU', link: '/misc/skill/profiling-gpu' },
@@ -286,11 +307,10 @@ export default defineConfig({
             ]
           },
           { 
-            text: 'Life', 
+            text: 'Gameplay', 
             collapsed: true,
-            link: '/misc/life/',
             items: [
-              { text: 'Life', link: '/misc/life/' },
+              { text: 'Inventory', link: '/misc/gameplay/inventory' },
             ]
           },
         ]

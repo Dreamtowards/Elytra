@@ -10,16 +10,16 @@
 
 1. [**All Draw Functions**](opengl4/draw-functions)  
 所有 Draw 函数，从基本的 glDrawArrays/Elements，到 MultiDraw, Instancing, Indirect, MultiDraw Indirect MDI, Transform Feedback..
-2. **Shader Storage Buffer Objects. SSBOs**  
-从 GPU Shader 里读取 CPU glBufferData 上传的数据。包括 Compute Shader, FS, VS 的示例，和UBOs的区别，内置函数与关键词。
-3. **Compute Shader**  
-CS的基本用法
-3. **Programmable Vertex Pulling**  
-使用SSBOs进行灵活的可编程 Vertex Pulling - Shader 中数据获取顶点数据
-4. **Bindless Texture**  
-无需 glBindTexture(Unit), Shader+SSBOs访问上千张Textures。性能、优势与缺点分析。
-5. **MultiDraw Indirect MDI**  
-虽然在All Draw Functions中有详细提到过，但由于MDI极为强大。在此进一步分析。包括 Command 多帧复用，及一些实例。
+2. [**Shader Storage Buffer Objects. SSBOs**  ](opengl4/ssbo)  
+SSBO 可用于shader之间传输(读/写)大量数据, 也可用于CPU和shader之间传输大量数据。
+3. [**Compute Shader**](opengl4/compute-shader)  
+.
+3. [**Programmable Vertex Pulling with SSBOs**](opengl4/programmable-vertex-pulling)  
+摆脱 VBO, VAO, etc. 使用特制的数据格式，在着色器中手动解包数据
+4. [**Bindless Texture**](opengl4/bindless-texture)  
+Bindless texture 允许 shader 直接通过 integer handle, (从SSBOs中)访问大量 textures, 而无需 bind texture unit.
+5. **MultiDraw Indirect. MDI**  
+MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
 6. **Tessellation Shader**  
 细分曲面
 3. **Direct State Access. DSA**  
@@ -34,7 +34,7 @@ CS的基本用法
 - https://medium.com/@daniel.coady/compute-shaders-in-opengl-4-3-d1c741998c03
 - https://learnopengl.com/Guest-Articles/2022/Compute-Shaders/Introduction
 
-
+- [Vertex Pooling Voxels](https://nickmcd.me/2021/04/04/high-performance-voxel-engine/)
 - https://blog.mecheye.net/2020/06/modern-graphics-apis-1-intro/
 - https://alain.xyz/blog/a-review-of-shader-languages
 - https://alain.xyz/blog/unreal-engine-architecture
@@ -44,18 +44,23 @@ CS的基本用法
 
 ### II. Modern Graphics Capriccios / APIs Thoughts
 
-1. **Vulkan QuickLook**  
+1. **Vulkan Review**  
 快速过一遍Vulkan 1000行的Hello Triangle
+2. **OpenGL4 Review**  
+100行 OpenGL 4.6, Hello Triangle. GLFW+GLAD+Cpp20
+3. **Wgpu Review**  
+快速过一遍Wgpu 200 行的 Hello Triangle。对比和 OpenGL, Vulkan 的性能。
+4. **DirectX 12 Review**
+5. **DirectX 9 Review**
+6. **Comparison**
+---
+
 2. **Vulkan 1.3 Dynamic Rendering**  
 使用DynamicRendering特性化繁为简，去除针对Tiling GPU的依赖，去除RenderPass Framebuffer
 3. **DirectX 12 Task Graph**  
 DX12 TaskGraph 分析。
-4. **Wgpu QuickLook**  
-快速过一遍Wgpu 200 行的 Hello Triangle。对比和 OpenGL, Vulkan 的性能。
 5. **Virtual Textures**  
 用途与功能性能对比。
-6. **NVIDIA RTX**  
-xima分析
 
 ### III. GFX
 
