@@ -41,56 +41,36 @@ features:
 <br>
 
 
-### Voxel
+<!-- ### Voxel
 
-***I. Storage:***     
-    1. Runtime Store,   
-    2. Persistent Store,   
-    3. Extendable Id System,   
-    4. Unaligned Voxel Systems  
+***I. Storage:***  
+[Runtime Store](), [Persistent Store](), [Extendable Id System](), [Unaligned Voxel Systems]()  
 
 ***II. Rendering:***   
-    1. LoD,   
-    2. Culling,   
-    3. RayMarching,   
-    4. Isosurface,   
-    5. Voxel GI.  
+[LoD](), [Culling](), [RayMarching](), [Isosurface](),   
 
 ***3. Simulating:***   
-   Flooding,  
-   Lighting,  
-   Connectivity,  
-   Fire Spread,  
-   Explosion,  
-   Voxel Collision Detection,  
-   PhysX Integration.  
+[Flooding](), [Lighting](), [Connectivity](), [Fire Spread](), [Explosion](), [Voxel Collision Detection](), [PhysX Integration]().  
 
 ***IV. Procedural WorldGen:***  
-    1. Noises,   
-    2. Biomes,   
-    3. WFC,   
-    4. L-system.    
+[Noises](), [Biomes](), [WFC](), [L-system]().    
 
-***Misc:*** 
-    1. Teardown of (Minecraft Perf / WorldGen, Teardown, Gore, Dauglas, xima)  
+***Misc:***   
+Teardown of (Minecraft Perf, Minecraft WorldGen, Teardown, Gore, Dauglas, xima)  
 
 ### Graphics
 
 ***I. Postmodern OpenGL 4:***  
-    1. All Draw Functions  
-    2. SSBO  
-    3. Compute Shader,  
-    4. Programmable Vertex Pulling,   
-    5. Bindless Texture,   
-    6. MultiDraw Indirect MDI,   
-    7. Tessellation Shader,   
-    8. DSA.   
-***II. Modern Graphics APIs:***  
+[SSBO](), [Compute Shader](), [Programmable Vertex Pulling](), [Bindless Texture](),   
+[All Draw Functions](), [MultiDraw Indirect MDI](), [Tessellation Shader](), [DSA]().   
 
+***II. Modern Graphics APIs:***  
+[Vulkan Review](), [Wgpu Review](), [OpenGL4 Review]()  
+[Vulkan DynamicRenderingExt](), [DirectX 12 WorkGraph]()
 
 ### Physics
 
-### Programming Language
+### Programming Language -->
 
 
 <!-- # Projects -->

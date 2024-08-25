@@ -116,9 +116,9 @@ export default defineConfig({
             items: [
               { text: 'All Draw Functions', link: '/graphics/opengl4/draw-functions' },
               { text: 'SSBO', link: '/graphics/opengl4/ssbo' },
-              { text: 'Compute Shader', link: '/graphics/opengl4/compute-shader' },
               { text: 'Vertex Pulling', link: '/graphics/opengl4/programmable-vertex-pulling' },
               { text: 'Bindless Texture', link: '/graphics/opengl4/bindless-texture' },
+              { text: 'Compute Shader', link: '/graphics/opengl4/compute-shader' },
               { text: 'MultiDraw Indirect. MDI', link: '/graphics/opengl4/multidraw-indirect' },
               { text: 'Tessellation Shader', link: '/graphics/opengl4/tessellation' },
               { text: 'Direct State Access. DSA', link: '/graphics/opengl4/dsa' },
@@ -141,13 +141,14 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Conceptions',
+            text: 'Advanced Features',
             collapsed: true,
             items: [
-              { text: 'Virtual Texture', link: '/graphics/misc/virtual-texture' },
-              { text: 'Render Graph', link: '/graphics/misc/render-graph' },
-              { text: 'Virtual Geometry<sup>Nanite</sup>', link: '/graphics/misc/render-graph' },
-              { text: 'Lumen Software RayTracing', link: '/graphics/misc/render-graph' },
+              { text: 'Virtual Texture', link: '/graphics/advanced/virtual-texture' },
+              { text: 'Render Graph', link: '/graphics/advanced/render-graph' },
+              { text: 'Visibility Buffer', link: '/graphics/advanced/visibility-buffer' },
+              { text: 'Virtual Geometry<sup>Nanite</sup>', link: '/graphics/advanced/virtual-geometry' },
+              { text: 'Software Raytracing<sup>Lumen</sup>', link: '/graphics/advanced/software-raytracing' },
             ]
           },
           {

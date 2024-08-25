@@ -12,17 +12,17 @@
 所有 Draw 函数，从基本的 glDrawArrays/Elements，到 MultiDraw, Instancing, Indirect, MultiDraw Indirect MDI, Transform Feedback..
 2. [**Shader Storage Buffer Objects. SSBOs**  ](opengl4/ssbo)  
 SSBO 可用于shader之间传输(读/写)大量数据, 也可用于CPU和shader之间传输大量数据。
-3. [**Compute Shader**](opengl4/compute-shader)  
-.
 3. [**Programmable Vertex Pulling with SSBOs**](opengl4/programmable-vertex-pulling)  
 摆脱 VBO, VAO, etc. 使用特制的数据格式，在着色器中手动解包数据
 4. [**Bindless Texture**](opengl4/bindless-texture)  
 Bindless texture 允许 shader 直接通过 integer handle, (从SSBOs中)访问大量 textures, 而无需 bind texture unit.
-5. **MultiDraw Indirect. MDI**  
+5. [**Compute Shader**](opengl4/compute-shader)  
+.
+6. **MultiDraw Indirect. MDI**  
 MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
-6. **Tessellation Shader**  
+7. **Tessellation Shader**  
 细分曲面
-3. **Direct State Access. DSA**  
+8. **Direct State Access. DSA**  
 性能对比，简要概述总结，和一些示例
 
 ::: details Resoueces
@@ -31,15 +31,12 @@ MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
 - [GL Wrapper by Luna](https://github.com/Luna5ama/gl-wrapper/blob/main/shared/src/main/kotlin/dev/luna5ama/glwrapper/objects/FramebufferObject.kt)
 - https://github.com/PacktPublishing/3D-Graphics-Rendering-Cookbook
 - https://juandiegomontoya.github.io/modern_opengl.html
-- https://medium.com/@daniel.coady/compute-shaders-in-opengl-4-3-d1c741998c03
-- https://learnopengl.com/Guest-Articles/2022/Compute-Shaders/Introduction
-
-- [Vertex Pooling Voxels](https://nickmcd.me/2021/04/04/high-performance-voxel-engine/)
 - https://blog.mecheye.net/2020/06/modern-graphics-apis-1-intro/
 - https://alain.xyz/blog/a-review-of-shader-languages
 - https://alain.xyz/blog/unreal-engine-architecture
 - https://alain.xyz/blog/game-engine-architecture
 - https://alain.xyz/blog/realtime-renderer-architectures
+- [Vertex Pooling Voxels](https://nickmcd.me/2021/04/04/high-performance-voxel-engine/)
 :::
 
 ### II. Modern Graphics APIs

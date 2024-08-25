@@ -23,3 +23,4 @@ on the AMD side support this feature. Latest drivers are required.
 - [Work Graphs API: First Look At Performance Of DirectX 12's Latest Feature](https://www.youtube.com/watch?v=sE7Xuk5aTnE)
 - [AMDGPUOpen - Microsoft DirectX ® 12中的GPU Work Graph](https://zhuanlan.zhihu.com/p/647958703)
 - https://www.zhihu.com/question/608461646/answer/3199883646
+- https://interplayoflight.wordpress.com/2024/06/29/a-quick-introduction-to-workgraphs/
