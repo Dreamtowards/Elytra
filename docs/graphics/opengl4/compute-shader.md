@@ -1,6 +1,8 @@
 
 # Compute Shader
 
+> 翻译自 [LearnOpenGL - Compute Shader Introduction by Jonas Sorgenfrei](https://learnopengl.com/Guest-Articles/2022/Compute-Shaders/Introduction)
+
 ## Introduction
 
 ### GPGPU
@@ -448,6 +450,7 @@ source code for this demo [here](https://learnopengl.com/code_viewer_gh.php?code
 
 ## Resources
 
+- https://www.khronos.org/opengl/wiki/Compute_Shader
 - [LearnOpenGL - Compute Shader Introduction by Jonas Sorgenfrei](https://learnopengl.com/Guest-Articles/2022/Compute-Shaders/Introduction)
 - [Simple Raytracer with Compute Shaders](https://antongerdelan.net/opengl/compute.html)
 - [GPU Gems - A Toolkit for Computation on GPUs](https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-37-toolkit-computation-gpus)

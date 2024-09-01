@@ -17,7 +17,7 @@ SSBO 可用于shader之间传输(读/写)大量数据, 也可用于CPU和shader�
 4. [**Bindless Texture**](opengl4/bindless-texture)  
 Bindless texture 允许 shader 直接通过 integer handle, (从SSBOs中)访问大量 textures, 而无需 bind texture unit.
 5. [**Compute Shader**](opengl4/compute-shader)  
-.
+Compute Shader 独立于渲染管线，可用于并行计算。本文介绍了 Compute Space (WorkGroups, LocalSizes), Invocations, Barriers, Dispatch 等基本概念
 6. **MultiDraw Indirect. MDI**  
 MultiDraw 与 Indirect. Command 录制 & 多帧复用，实例。
 7. **Tessellation Shader**  

@@ -66,6 +66,7 @@ Dev
 [Luna](https://github.com/Luna5ama)<small>[(.dev)](https://about.luna5ama.dev/)</small><sup>Graphics</sup>, 
 [ACRL](https://www.zhihu.com/people/acrl)<sup>Physics</sup>, 
 [Thaumstrial](https://thaumstrial.com/), 
+[qiutang](https://qiutang98.github.io/), 
 [szszss](http://blog.hakugyokurou.net/?p=785),
 [Saurlax](https://saurlax.com/),
 [Clansty](https://clansty.com/),

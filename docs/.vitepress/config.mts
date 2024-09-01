@@ -152,20 +152,20 @@ export default defineConfig({
             ]
           },
           {
+            text: 'Atmosphere',
+            collapsed: true,
+            items: [
+              { text: 'Rayleigh Scattering', link: '/graphics/atmosphere/atmosphere-rayleigh-scattering' },
+              { text: 'Volumetric Cloud', link: '/graphics/atmosphere/volumetric-cloud' },
+              { text: 'Volumetric Fog & Light', link: '/graphics/atmosphere/volumetric-fog-light' },
+              { text: 'IBL<sup>Image-based Lighting</sup>', link: '/graphics/gfx/image-based-lighting' },
+              { text: 'RTWSM.<sup>Rectilinear Texture Warping Shadow Mapping</sup>', link: '/graphics/gfx/rtwsm' },
+            ]
+          },
+          {
             text: 'GFX',
             collapsed: true,
             items: [
-              {
-                text: 'Atmosphere',
-                collapsed: true,
-                items: [
-                  { text: 'Rayleigh Scattering', link: '/graphics/gfx/atmosphere-rayleigh-scattering' },
-                  { text: 'Volumetric Fog & Light', link: '/graphics/gfx/volumetric-fog-light' },
-                  { text: 'Volumetric Cloud', link: '/graphics/gfx/volumetric-cloud' },
-                  { text: 'IBL<sup>Image-based Lighting</sup>', link: '/graphics/gfx/image-based-lighting' },
-                ]
-              },
-              { text: 'RTWSM.<sup>Rectilinear Texture Warping Shadow Mapping</sup>', link: '/graphics/gfx/rtwsm' },
               { text: 'Motion Blur', link: '/graphics/gfx/motion-blur' },
               { text: 'Depth of Field', link: '/graphics/gfx/depth-of-field' },
               { text: 'Inception Deform Matrix', link: '/graphics/gfx/inception-deform' },
@@ -237,6 +237,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Ethertia',
+        items: [
+          { text: 'Overview', link: '/ethertia/' },
+          { text: 'Dev', link: '/ethertia/dev.md' },
+        ]
+      },
+      {
         text: 'Misc',
         // collapsed: false,
         items: [
@@ -245,18 +252,18 @@ export default defineConfig({
             link: '/misc/about/',
             collapsed: true,
             items: [
-              { text: 'Legacy Projects', link: '/misc/legacy-projects' },
-              { text: 'Time Management', link: '/misc/about/time-management' },
-              { text: 'Learning Method', link: '/misc/about/autonomous-learning' },
-              { text: 'Writing Workflow', link: '/misc/about/writing-workflow' },
+              { text: 'Timing', link: '/misc/about/time-management' },
+              { text: 'Learning', link: '/misc/about/learning' },
+              { text: 'Writing', link: '/misc/about/writing' },
               { 
                 text: 'Life', 
                 collapsed: true,
-                link: '/misc/life/',
+                link: '/misc/about/life/',
                 items: [
-                  { text: 'Life', link: '/misc/life/' },
                 ]
               },
+              { text: 'Legacy Projects', link: '/misc/legacy-projects' },
+              { text: 'Devices', link: '/misc/about/devices' },
               { text: 'Ethertia Specs', link: '/voxel/misc/ethertia-spec' },
             ]
           },
@@ -268,6 +275,7 @@ export default defineConfig({
               { text: 'Douglas\'s Voxel', link: '/misc/teardown/douglas-voxel' },
               { text: 'Gore\'s Voxel', link: '/misc/teardown/gore-voxel' },
               { text: 'Minecraft Perf Mods', link: '/misc/teardown/minecraft-perf' },
+              { text: '秋棠\'s Flower Engine', link: '/misc/teardown/flower-engine' },
             ]
           },
           { 

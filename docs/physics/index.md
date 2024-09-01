@@ -197,10 +197,9 @@ Name | Features                            | Used by | License
 
 ## Resources
 
-
+- https://winter.dev/articles/physics-engine
+- [ACRL: 物理引擎概览] https://zhuanlan.zhihu.com/p/372399433
+- https://github.com/Dreamtowards/Outskirts/blob/master/src/outskirts/physics/dynamics/DiscreteDynamicsWorld.java
 - https://web.archive.org/web/20190311161021/https://wildbunny.co.uk/blog/2011/04/06/physics-engines-for-dummies/
 - https://web.archive.org/web/20150310204415/http://gafferongames.com/game-physics/integration-basics/
 - https://web.archive.org/web/20120218224456/http://www.gamasutra.com/resource_guide/20030121/jacobson_01.shtml
-
-
-- [ACRL: 物理引擎概览] https://zhuanlan.zhihu.com/p/372399433
